@@ -6,7 +6,7 @@ import {
   RouteProps
 } from 'react-router-dom'
 
-type PrivateRouteProps = RouteProps & {
+export declare type PrivateRouteProps = RouteProps & {
   component:
     | React.ComponentType<RouteComponentProps<any>>
     | React.ComponentType<any>

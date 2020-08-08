@@ -6,7 +6,7 @@ import {
   RouteProps
 } from 'react-router-dom'
 
-type GuestRouteProps = RouteProps & {
+export declare type GuestRouteProps = RouteProps & {
   component:
     | React.ComponentType<RouteComponentProps<any>>
     | React.ComponentType<any>
