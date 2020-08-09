@@ -78,43 +78,6 @@ export const mergeObjectStrict = (
   return merged;
 };
 
-/**
- * Extract form error message
- */
-export const extractDjangoFormErrorMessage = (errorData: any) => {
-  try {
-    const messages: string[] = [];
-    for (const key in errorData) {
-      if (errorData.hasOwnProperty(key)) {
-        if (Array.isArray(errorData[key])) {
-          messages.push(`${key}: ${errorData[key].join(" ")}`);
-        } else if (typeof errorData[key] === "string") {
-          messages.push(`${key}: ${errorData[key]}`);
-        }
-      }
-    }
-    return messages.length !== 0 ? messages : undefined;
-  } catch (error) {
-    return undefined;
-  }
-};
-
-/**
- * Clear null and undefined object
- * @param data object
- */
-export const clearNullOrUndefined = (data: object) => {
-  const result: any = {};
-  for (const key in data) {
-    if (Object.prototype.hasOwnProperty.call(data, key)) {
-      const element = (data as any)[key];
-      if (element) {
-        result[key] = element;
-      }
-    }
-  }
-  return result;
-};
 
 /**
  * Convert array of object to object
