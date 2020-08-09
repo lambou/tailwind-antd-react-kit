@@ -107,7 +107,7 @@ const RemoteSelect = React.forwardRef<Select, RemoteSelectProps>(
     }, [])
 
     return React.createElement(
-      typeof Select,
+      Select,
       {
         ref: ref,
         value: inputValue,
@@ -121,7 +121,7 @@ const RemoteSelect = React.forwardRef<Select, RemoteSelectProps>(
           // original onSearch
           if (onSearch) onSearch(value)
         },
-        onChange: (value: string, option: any) => {
+        onChange: (value: SelectValue, option: any) => {
           handleChange(value)
 
           // original onChange

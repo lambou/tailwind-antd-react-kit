@@ -152,7 +152,7 @@ const FlexSpace = React.forwardRef<HTMLDivElement, FlexSpaceProps>(
     }
 
     return React.createElement(
-      typeof HTMLDivElement,
+      "div",
       {
         ref: ref,
         className: clsx([

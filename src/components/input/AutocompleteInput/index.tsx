@@ -14,7 +14,7 @@ export type AutoCompleteInputProps = AutoCompleteProps;
 
 const AutocompleteInput = (props: AutoCompleteInputProps) => {
   const { children, ...rest } = props
-  return React.createElement(typeof SAutocomplete, rest, children)
+  return React.createElement(SAutocomplete, rest, children)
 }
 
 export default AutocompleteInput

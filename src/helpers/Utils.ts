@@ -39,6 +39,46 @@ export const mergeObject = (
 };
 
 /**
+ * Merge two object with total replacement of choosed side
+ *
+ * @param left left object
+ * @param right right object
+ * @param priority merging priority
+ */
+export const mergeObjectStrict = (
+  left: any,
+  right: any,
+  priority: "left" | "right" = "left"
+) => {
+  const mergedKeys: string[] = [];
+
+  for (const key of [...Object.keys(left), ...Object.keys(right)]) {
+    if (!mergedKeys.includes(key)) {
+      mergedKeys.push(key);
+    }
+  }
+
+  const merged: any = {};
+
+  for (const key of mergedKeys) {
+    switch (priority) {
+      case "left":
+        merged[key] = Object.prototype.hasOwnProperty.call(left, key)
+          ? left[key]
+          : right[key];
+        break;
+      case "right":
+        merged[key] = Object.prototype.hasOwnProperty.call(right, key)
+          ? right[key]
+          : left[key];
+        break;
+    }
+  }
+
+  return merged;
+};
+
+/**
  * Extract form error message
  */
 export const extractDjangoFormErrorMessage = (errorData: any) => {
@@ -161,9 +201,9 @@ export function useInitReducter<
       action.state ?? (action.stateFn ? action.stateFn(state) : undefined);
 
     if (action.type === "updateState") {
-      return mergeObject(state, newState, "right");
+      return mergeObjectStrict(state, newState, "right");
     } else if (data.actionConfig && data.actionConfig[action.type]) {
-      return mergeObject(
+      return mergeObjectStrict(
         state,
         data.actionConfig[action.type](state, action),
         "right"
@@ -185,3 +225,34 @@ export function useInitReducter<
   >(reducer, data.initialState);
   return [state, dispatch, React.createContext({ state, dispatch })];
 }
+
+/**
+ * Extend object of values to a form data
+ * @param obj object
+ * @param filters filters to be applied on attributes
+ */
+export const extendToFormData = (
+  obj: any,
+  filters?: {
+    [key: string]: (value: any) => any | [(value: any) => any];
+  }
+) => {
+  const form = new FormData();
+  for (const key in obj) {
+    if (Object.prototype.hasOwnProperty.call(obj, key)) {
+      let element = obj[key];
+      if (filters && filters[key]) {
+        const func = filters[key];
+        if (Array.isArray(func)) {
+          for (const f of func) {
+            element = f(element);
+          }
+        } else {
+          element = func(element);
+        }
+      }
+      form.set(key, element);
+    }
+  }
+  return form;
+};

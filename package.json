@@ -64,6 +64,7 @@
   ],
   "dependencies": {
     "@ant-design/icons": "^4.2.2",
+    "@noreajs/common": "^1.0.7",
     "antd": "^4.5.2",
     "axios": "^0.19.2",
     "clsx": "^1.1.1",
