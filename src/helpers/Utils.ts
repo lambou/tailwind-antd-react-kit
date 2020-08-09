@@ -103,7 +103,7 @@ export const arrayToObject = (array: any[]) => {
  * @param img image as RcFile
  * @param callback callback
  */
-export default function rcFileToBase64(
+export function rcFileToBase64(
   img: RcFile,
   callback: (image: any) => void
 ) {
