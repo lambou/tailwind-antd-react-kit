@@ -10,7 +10,7 @@ export declare type PrivateRouteProps = RouteProps & {
   component:
     | React.ComponentType<RouteComponentProps<any>>
     | React.ComponentType<any>
-  authenticated: () => boolean
+  authenticated: boolean
   redirectUrl?: string
 }
 //React.FC<PrivateRouteProps>
