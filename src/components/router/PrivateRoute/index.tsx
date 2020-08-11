@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import {
   Route,
   Redirect,
@@ -19,12 +19,19 @@ const PrivateRoute = React.forwardRef<Route, PrivateRouteProps>(
     // explode props
     const { component: Component, authenticated, redirectUrl, ...rest } = props
 
+    const [connected, setConnected] = useState<boolean>(authenticated)
+
+    useEffect(() => {
+      setConnected(props.authenticated)
+      // eslint-disable-next-line
+    }, [props.authenticated])
+
     return (
       <Route
         ref={ref}
         {...rest}
         render={(routeProps) =>
-          authenticated() ? (
+          connected ? (
             <Component {...routeProps} />
           ) : (
             <Redirect to={redirectUrl ?? '/login'} />
