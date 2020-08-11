@@ -1,9 +1,11 @@
-export * from "./button";
-export * from "./card";
-export * from "./disposition";
-export * from "./ErrorWrapper";
-export * from "./input";
-export * from "./modal";
-export * from "./PageHeaderWrapper";
-export * from "./router"
-export * from "./table";
+export * from './button'
+export * from './card'
+export * from './disposition'
+export { default as ErrorWrapper } from './ErrorWrapper'
+export type { ErrorWrapperProps } from './ErrorWrapper'
+export * from './input'
+export * from './modal'
+export { default as PageHeaderWrapper } from './PageHeaderWrapper'
+export type { PageHeaderWrapperProps } from './PageHeaderWrapper'
+export * from './router'
+export * from './table'
