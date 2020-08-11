@@ -11,5 +11,4 @@ export const ExampleComponent = ({ text }: Props) => {
 
 export * from "./components";
 export * from "./helpers";
-
-export type { FlexSpaceProps } from './components/disposition/FlexSpace'
+export * from "./interfaces";
