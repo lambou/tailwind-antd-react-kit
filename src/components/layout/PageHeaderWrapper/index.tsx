@@ -1,7 +1,7 @@
 import React from 'react'
 import { Card } from 'antd'
 import { CardTabListType } from 'antd/lib/card'
-import CustomSpace from '../disposition/FlexSpace'
+import CustomSpace from '../../disposition/FlexSpace'
 import clsx from 'clsx'
 
 export declare type PageHeaderWrapperProps = React.HTMLAttributes<

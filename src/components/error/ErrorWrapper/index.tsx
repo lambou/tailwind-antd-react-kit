@@ -7,7 +7,7 @@ import {
 } from '@ant-design/icons'
 import { Link } from 'react-router-dom'
 import clsx from 'clsx'
-import IError from '../../interfaces/IError'
+import IError from '../../../interfaces/IError'
 
 export type ErrorWrapperProps = React.HTMLAttributes<HTMLDivElement> & {
   errors: IError[]
