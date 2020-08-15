@@ -58,6 +58,7 @@ export declare type TagInputProps = Omit<
   max?: number
   distinct?: boolean
   onChange?: (newValue: string[]) => void
+  renderItem?: (item: string) => React.ReactNode
   addButtonText?: React.ReactNode
   addButtonProps?: TagProps
   valueTagProps?: TagProps
@@ -80,6 +81,7 @@ const TagInput: React.FC<TagInputProps> = React.forwardRef<
     valueTagProps,
     addButtonText,
     onChange,
+    renderItem,
     ...propsRest
   } = props
 
@@ -260,11 +262,15 @@ const TagInput: React.FC<TagInputProps> = React.forwardRef<
                 e.preventDefault()
               }}
             >
-              {isLongTag ? `${tag.slice(0, 20)}...` : tag}
+              {renderItem
+                ? renderItem(tag)
+                : isLongTag
+                ? `${tag.slice(0, 20)}...`
+                : tag}
             </span>
           </ValueTag>
         )
-        return isLongTag ? (
+        return !renderItem && isLongTag ? (
           <Tooltip title={tag} key={index}>
             {tagElem}
           </Tooltip>
