@@ -1,8 +1,9 @@
 import React from 'react'
 import { FlexSpace, FlexSpaceProps } from '../../disposition'
-import Avatar, { AvatarProps } from 'antd/lib/avatar/avatar'
+import { Avatar } from 'antd'
 import { PictureOutlined, UserOutlined } from '@ant-design/icons'
 import clsx from 'clsx'
+import { AvatarProps } from 'antd/lib/avatar'
 
 export declare type PersonProps = FlexSpaceProps & {
   pictureSrc?: string
