@@ -90,21 +90,21 @@ const FlexSpace = React.forwardRef<HTMLDivElement, FlexSpaceProps>(
       childrenLengh: number
     ) => {
       if (child) {
-        const { style } = child.props ?? {}
+        // const { style } = child.props ?? {}
 
-        // new style
-        const {
-          marginRight,
-          marginBottom,
-          ...newStyleRest
-        }: React.CSSProperties = style ?? {}
+        // // new style
+        // const {
+        //   marginRight,
+        //   marginBottom,
+        //   ...newStyleRest
+        // }: React.CSSProperties = style ?? {}
 
         let newStyle: React.CSSProperties | undefined = undefined
 
         // horizontal style
         if (isHorizontal()) {
           newStyle = {
-            ...newStyleRest,
+            // ...newStyleRest,
             marginRight: getSize()
           }
         }
@@ -112,7 +112,7 @@ const FlexSpace = React.forwardRef<HTMLDivElement, FlexSpaceProps>(
         // vertical style
         if (isVertical()) {
           newStyle = {
-            ...newStyleRest,
+            // ...newStyleRest,
             marginBottom: marginY ? getSize() : 0
           }
         }
@@ -131,7 +131,7 @@ const FlexSpace = React.forwardRef<HTMLDivElement, FlexSpaceProps>(
                 ? {
                     ...newStyle
                   }
-                : style
+                : {}
             }
           >
             {child}
