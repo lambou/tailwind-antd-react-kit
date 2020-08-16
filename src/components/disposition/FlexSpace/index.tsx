@@ -120,7 +120,6 @@ const FlexSpace = React.forwardRef<HTMLDivElement, FlexSpaceProps>(
         return (
           <div
             className={clsx([
-              child.props?.className,
               itemClass,
               isBreaking() ? breakpointItemClass : undefined,
               'inline-flex items-center'
