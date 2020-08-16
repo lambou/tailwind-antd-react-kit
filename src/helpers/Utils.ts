@@ -2,6 +2,7 @@ import { RcFile } from 'antd/lib/upload'
 import { useReducer, Reducer } from 'react'
 import React from 'react'
 import moment from 'moment'
+import { Obj } from '@noreajs/common'
 
 /**
  * Convert array of object to object
@@ -71,36 +72,36 @@ export function useInitReducer<
     }>
   }>
 ] {
-  /**
-   * Merge two objects; it replace as soon as the key exists in the priority object
-   * @param left left object
-   * @param right right object
-   * @param priority left or right
-   */
-  function mergeStrict(left: any, right: any, priority = 'left') {
-    const mergedKeys: any[] = []
-    for (const key of [...Object.keys(left), ...Object.keys(right)]) {
-      if (!mergedKeys.includes(key)) {
-        mergedKeys.push(key)
-      }
-    }
-    const merged: any = {}
-    for (const key of mergedKeys) {
-      switch (priority) {
-        case 'left':
-          merged[key] = Object.prototype.hasOwnProperty.call(left, key)
-            ? left[key]
-            : right[key]
-          break
-        case 'right':
-          merged[key] = Object.prototype.hasOwnProperty.call(right, key)
-            ? right[key]
-            : left[key]
-          break
-      }
-    }
-    return merged
-  }
+  // /**
+  //  * Merge two objects; it replace as soon as the key exists in the priority object
+  //  * @param left left object
+  //  * @param right right object
+  //  * @param priority left or right
+  //  */
+  // function mergeStrict(left: any, right: any, priority = 'left') {
+  //   const mergedKeys: any[] = []
+  //   for (const key of [...Object.keys(left), ...Object.keys(right)]) {
+  //     if (!mergedKeys.includes(key)) {
+  //       mergedKeys.push(key)
+  //     }
+  //   }
+  //   const merged: any = {}
+  //   for (const key of mergedKeys) {
+  //     switch (priority) {
+  //       case 'left':
+  //         merged[key] = Object.prototype.hasOwnProperty.call(left, key)
+  //           ? left[key]
+  //           : right[key]
+  //         break
+  //       case 'right':
+  //         merged[key] = Object.prototype.hasOwnProperty.call(right, key)
+  //           ? right[key]
+  //           : left[key]
+  //         break
+  //     }
+  //   }
+  //   return merged
+  // }
 
   /**
    * Reducer method
@@ -120,9 +121,9 @@ export function useInitReducer<
       action.state ?? (action.stateFn ? action.stateFn(state) : undefined)
 
     if (action.type === 'updateState') {
-      return mergeStrict(state, newState, 'right')
+      return Obj.mergeStrict(state, newState, 'right')
     } else if (data.actionConfig && data.actionConfig[action.type]) {
-      return mergeStrict(
+      return Obj.mergeStrict(
         state,
         data.actionConfig[action.type](state, action),
         'right'
