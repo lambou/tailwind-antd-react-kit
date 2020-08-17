@@ -122,7 +122,6 @@ const FlexSpace = React.forwardRef<HTMLDivElement, FlexSpaceProps>(
             className,
             itemClass,
             isBreaking() ? breakpointItemClass : undefined,
-            'inline-flex'
           ]),
           style:
             childrenLengh !== 1 && index !== childrenLengh - 1
