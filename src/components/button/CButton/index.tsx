@@ -5,7 +5,7 @@ import tw from 'twin.macro'
 import { ButtonProps } from 'antd/lib/button'
 
 const SButton = styled(Button)`
-  ${tw`inline-flex items-center`}
+  ${tw`inline-flex items-center justify-center`}
 `
 
 export declare type CButtonProps = ButtonProps & {}
