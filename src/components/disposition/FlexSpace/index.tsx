@@ -41,19 +41,19 @@ const FlexSpace = React.forwardRef<HTMLDivElement, FlexSpaceProps>(
     const isBreaking = () => {
       switch (breakpoint) {
         case 'xs':
-          return !bp.xs
+          return bp.xs === true
         case 'sm':
-          return !bp.sm
+          return bp.sm === false
         case 'md':
-          return !bp.md
+          return bp.md === false
         case 'lg':
-          return !bp.lg
+          return bp.lg === false
         case 'xl':
-          return !bp.xl
+          return bp.xl === false
         case 'xxl':
-          return !bp.xxl
+          return bp.xxl === false
         default:
-          return false
+          return undefined
       }
     }
 
@@ -74,15 +74,15 @@ const FlexSpace = React.forwardRef<HTMLDivElement, FlexSpaceProps>(
      * Align items vertically
      */
     const isVertical = () => {
-      return isBreaking() || (direction && direction === 'vertical')
+      return isBreaking() === true || (!!direction && direction === 'vertical')
     }
 
-    /**
-     * Align items horizontally
-     */
-    const isHorizontal = () => {
-      return !isBreaking() || direction === 'horizontal'
-    }
+    // /**
+    //  * Align items horizontally
+    //  */
+    // const isHorizontal = () => {
+    //   return isBreaking() === false || direction === 'horizontal'
+    // }
 
     const modifyChildren = (
       child: any,
@@ -102,7 +102,7 @@ const FlexSpace = React.forwardRef<HTMLDivElement, FlexSpaceProps>(
         let newStyle: React.CSSProperties | undefined = undefined
 
         // horizontal style
-        if (isHorizontal()) {
+        if (!isVertical()) {
           newStyle = {
             ...newStyleRest,
             marginRight: getSize()
@@ -121,7 +121,7 @@ const FlexSpace = React.forwardRef<HTMLDivElement, FlexSpaceProps>(
           className: clsx([
             className,
             itemClass,
-            isBreaking() ? breakpointItemClass : undefined,
+            isBreaking() ? breakpointItemClass : undefined
           ]),
           style:
             childrenLengh !== 1 && index !== childrenLengh - 1
@@ -144,7 +144,7 @@ const FlexSpace = React.forwardRef<HTMLDivElement, FlexSpaceProps>(
         return [list]
       }
     }
-
+    console.log([isVertical()])
     return React.createElement(
       'div',
       {
@@ -154,10 +154,7 @@ const FlexSpace = React.forwardRef<HTMLDivElement, FlexSpaceProps>(
           inline === true ? 'inline-flex' : 'flex',
           items && `items-${items}`,
           justify && `justify-${justify}`,
-          {
-            'flex-col': isVertical()
-          },
-          { 'flex-row': isHorizontal() },
+          isVertical() ? 'flex-col' : 'flex-row',
           { 'flex-wrap': wrap ?? true }
         ]),
         ...rest
