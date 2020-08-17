@@ -19,7 +19,7 @@ const App = () => {
     <ErrorBoundary>
       <ErrorWrapper errors={[]}>
         <Container>
-          <FlexSpace marginY={true} direction='vertical' justify='center'>
+          <FlexSpace marginY direction='vertical' justify='center'>
             <ExampleComponent text='Create React Library Example 😄' />
             <ExampleComponent text='Create React Library Example 😄' />
             <CButton className='rounded-full'>H</CButton>
