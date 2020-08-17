@@ -38,7 +38,6 @@ const PromptConfirm: React.FC<PromptConfirmProps> = React.forwardRef<
       content: content ?? (
         <Form initialValues={props.initialValues} form={form}>
           {props.formContent}
-          <Form.Item></Form.Item>
         </Form>
       ),
       onOk: () => {
