@@ -90,21 +90,21 @@ const FlexSpace = React.forwardRef<HTMLDivElement, FlexSpaceProps>(
       childrenLengh: number
     ) => {
       if (child) {
-        // const { style } = child.props ?? {}
+        const { style, className, ...propsRest } = child.props ?? {}
 
-        // // new style
-        // const {
-        //   marginRight,
-        //   marginBottom,
-        //   ...newStyleRest
-        // }: React.CSSProperties = style ?? {}
+        // new style
+        const {
+          marginRight,
+          marginBottom,
+          ...newStyleRest
+        }: React.CSSProperties = style ?? {}
 
         let newStyle: React.CSSProperties | undefined = undefined
 
         // horizontal style
         if (isHorizontal()) {
           newStyle = {
-            // ...newStyleRest,
+            ...newStyleRest,
             marginRight: getSize()
           }
         }
@@ -112,30 +112,26 @@ const FlexSpace = React.forwardRef<HTMLDivElement, FlexSpaceProps>(
         // vertical style
         if (isVertical()) {
           newStyle = {
-            // ...newStyleRest,
+            ...newStyleRest,
             marginBottom: marginY ? getSize() : 0
           }
         }
 
-        return (
-          <div
-            className={clsx([
-              itemClass,
-              isBreaking() ? breakpointItemClass : undefined,
-              'inline-flex items-center'
-            ])}
-            key={index}
-            style={
-              childrenLengh !== 1 && index !== childrenLengh - 1
-                ? {
-                    ...newStyle
-                  }
-                : {}
-            }
-          >
-            {child}
-          </div>
-        )
+        return React.cloneElement(child, {
+          className: clsx([
+            className,
+            itemClass,
+            isBreaking() ? breakpointItemClass : undefined,
+            'inline-flex'
+          ]),
+          style:
+            childrenLengh !== 1 && index !== childrenLengh - 1
+              ? {
+                  ...newStyle
+                }
+              : {},
+          ...propsRest
+        })
       } else {
         return React.createElement('div', null, null)
       }
@@ -151,7 +147,7 @@ const FlexSpace = React.forwardRef<HTMLDivElement, FlexSpaceProps>(
     }
 
     return React.createElement(
-      "div",
+      'div',
       {
         ref: ref,
         className: clsx([
