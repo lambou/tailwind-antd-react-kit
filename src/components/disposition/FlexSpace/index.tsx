@@ -89,6 +89,13 @@ const FlexSpace = React.forwardRef<HTMLDivElement, FlexSpaceProps>(
       index: number,
       childrenLengh: number
     ) => {
+      /**
+       * Check if we can apply margin
+       */
+      const canApplyMargin = () => {
+        return childrenLengh !== 1 && index !== childrenLengh - 1
+      }
+
       if (child) {
         const { style, className, ...propsRest } = child.props ?? {}
 
@@ -99,20 +106,22 @@ const FlexSpace = React.forwardRef<HTMLDivElement, FlexSpaceProps>(
           ...newStyleRest
         }: React.CSSProperties = style ?? {}
 
-        let newStyle: React.CSSProperties | undefined = undefined
+        let newStyle: React.CSSProperties = {
+          ...newStyleRest
+        }
 
         // horizontal style
-        if (!isVertical()) {
+        if (!isVertical() && canApplyMargin()) {
           newStyle = {
-            ...newStyleRest,
+            ...newStyle,
             marginRight: getSize()
           }
         }
 
         // vertical style
-        if (isVertical()) {
+        if (isVertical() && canApplyMargin()) {
           newStyle = {
-            ...newStyleRest,
+            ...newStyle,
             marginBottom: marginY ? getSize() : 0
           }
         }
@@ -123,12 +132,7 @@ const FlexSpace = React.forwardRef<HTMLDivElement, FlexSpaceProps>(
             itemClass,
             isBreaking() ? breakpointItemClass : undefined
           ]),
-          style:
-            childrenLengh !== 1 && index !== childrenLengh - 1
-              ? {
-                  ...newStyle
-                }
-              : {},
+          style: newStyle,
           ...propsRest
         })
       } else {
