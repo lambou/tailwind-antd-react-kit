@@ -35,6 +35,8 @@ const App = () => {
             <span className='font-bold text-lg'>Tag Input</span>
             <TagInput />
             <span className='font-bold text-lg'>Activity Item</span>
+            <>Hello</>
+            Je suis Ko
             <ActivityItem
               shadow
               rounded

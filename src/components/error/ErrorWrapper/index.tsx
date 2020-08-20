@@ -82,11 +82,14 @@ const ErrorWrapper = React.forwardRef<HTMLDivElement, ErrorWrapperProps>(
                 className,
                 'flex items-center justify-center w-full h-full p-8',
                 mode === 'overlay'
-                  ? ['absolute bg-white bg-opacity-75', overlayClassName]
+                  ? ['absolute bg-white bg-opacity-75', overlayClassName].join(" ")
                   : ''
               ])}
               style={{
-                backdropFilter: backdropFilter ?? 'blur(2.5px)',
+                backdropFilter:
+                  backdropFilter ?? mode === 'overlay'
+                    ? 'blur(2.5px)'
+                    : undefined,
                 ...styleRest
               }}
               {...propsRest}

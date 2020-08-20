@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import clsx from 'clsx'
 import useBreakpoint from 'antd/lib/grid/hooks/useBreakpoint'
+import ReactIs from 'react-is'
 
 export declare type FlexSpaceProps = React.HTMLAttributes<HTMLDivElement> & {
   inline?: boolean
@@ -97,6 +98,9 @@ const FlexSpace = React.forwardRef<HTMLDivElement, FlexSpaceProps>(
       }
 
       if (child) {
+        /**
+         * Update styles
+         */
         const { style, className, ...propsRest } = child.props ?? {}
 
         // new style
@@ -126,15 +130,24 @@ const FlexSpace = React.forwardRef<HTMLDivElement, FlexSpaceProps>(
           }
         }
 
-        return React.cloneElement(child, {
-          className: clsx([
-            className,
-            itemClass,
-            isBreaking() ? breakpointItemClass : undefined
-          ]),
-          style: newStyle,
-          ...propsRest
-        })
+        /**
+         * Check if it is a react element
+         */
+        if (ReactIs.isElement(child)) {
+          return ReactIs.isFragment(child)
+            ? child
+            : React.cloneElement(child, {
+                className: clsx([
+                  className,
+                  itemClass,
+                  isBreaking() ? breakpointItemClass : undefined
+                ]),
+                style: newStyle,
+                ...propsRest
+              })
+        } else {
+          return <React.Fragment>{child}</React.Fragment>
+        }
       } else {
         return React.createElement('div', null, null)
       }
@@ -148,7 +161,7 @@ const FlexSpace = React.forwardRef<HTMLDivElement, FlexSpaceProps>(
         return [list]
       }
     }
-    console.log([isVertical()])
+
     return React.createElement(
       'div',
       {
