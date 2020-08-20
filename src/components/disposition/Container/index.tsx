@@ -1,14 +1,16 @@
 import React from 'react'
 import useBreakpoint from 'antd/lib/grid/hooks/useBreakpoint'
+import clsx from 'clsx'
 
-export declare type ContainerProps = {
+export declare type ContainerProps = React.HTMLAttributes<HTMLDivElement> & {
   size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'fluid'
 }
 
-const Container: React.FC<
-  ContainerProps & React.HTMLAttributes<HTMLDivElement>
-> = (props) => {
-  const { size, style, ...restProps } = props
+const Container: React.FC<ContainerProps> = React.forwardRef<
+  HTMLDivElement,
+  ContainerProps
+>((props, ref) => {
+  const { size, style, className, ...restProps } = props
 
   const paddingInPercent = 0.0625
 
@@ -101,15 +103,15 @@ const Container: React.FC<
   }
 
   return (
-    <div className='flex justify-center'>
-      <div
-        style={extendCssStyle()}
-        {...restProps}
-      >
-        {props.children}
-      </div>
+    <div
+      ref={ref}
+      className={clsx([className, 'm-auto'])}
+      style={extendCssStyle()}
+      {...restProps}
+    >
+      {props.children}
     </div>
   )
-}
+})
 
 export default Container

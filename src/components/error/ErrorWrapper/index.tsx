@@ -74,15 +74,17 @@ const ErrorWrapper = React.forwardRef<HTMLDivElement, ErrorWrapperProps>(
 
     return (
       <Spin spinning={loading} {...spinProps}>
-        <div className='relative'>
-          {errors.length !== 0 && (
+        {errors.length !== 0 ? (
+          <div className='relative'>
             <div
               ref={ref}
               className={clsx([
                 className,
                 'flex items-center justify-center w-full h-full p-8',
                 mode === 'overlay'
-                  ? ['absolute bg-white bg-opacity-75', overlayClassName].join(" ")
+                  ? ['absolute bg-white bg-opacity-75', overlayClassName].join(
+                      ' '
+                    )
                   : ''
               ])}
               style={{
@@ -162,16 +164,19 @@ const ErrorWrapper = React.forwardRef<HTMLDivElement, ErrorWrapperProps>(
                 </div>
               )}
             </div>
-          )}
-          {!(errors.length !== 0 && mode === 'replace') &&
-            React.createElement(
-              'div',
-              {
-                className: mode === 'overlay' ? 'pointer-events-none' : ''
-              },
-              props.children
-            )}
-        </div>
+            
+            {mode === 'overlay' &&
+              React.createElement(
+                'div',
+                {
+                  className: 'pointer-events-none'
+                },
+                props.children
+              )}
+          </div>
+        ) : (
+          <React.Fragment>{props.children}</React.Fragment>
+        )}
       </Spin>
     )
   }
