@@ -1,6 +1,6 @@
 {
   "name": "tailwind-antd-react-kit",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "UI Components and helpers for frontend developement using Tailwind + Ant Design and React.js",
   "author": "lambou",
   "license": "MIT",
