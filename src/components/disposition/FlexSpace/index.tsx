@@ -126,7 +126,7 @@ const FlexSpace = React.forwardRef<HTMLDivElement, FlexSpaceProps>(
         if (isVertical() && canApplyMargin()) {
           newStyle = {
             ...newStyle,
-            marginBottom: marginY ? getSize() : 0
+            marginBottom: marginY ? getSize() : undefined
           }
         }
 
@@ -172,7 +172,7 @@ const FlexSpace = React.forwardRef<HTMLDivElement, FlexSpaceProps>(
           items && `items-${items}`,
           justify && `justify-${justify}`,
           isVertical() ? 'flex-col' : 'flex-row',
-          { 'flex-wrap': wrap ?? true }
+          { 'flex-wrap': wrap }
         ]),
         ...rest
       },
@@ -188,7 +188,8 @@ FlexSpace.propTypes = {
 }
 
 FlexSpace.defaultProps = {
-  marginY: false
+  marginY: false,
+  wrap: false
 }
 
 export default FlexSpace

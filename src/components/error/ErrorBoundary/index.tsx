@@ -1,11 +1,11 @@
 import React from 'react'
 import clsx from 'clsx'
-import { FrownOutlined, BackwardOutlined } from '@ant-design/icons'
+import { FrownOutlined, ArrowLeftOutlined } from '@ant-design/icons'
 import { CButton } from '../../button'
-import { FlexSpace } from '../../disposition'
+import { FlexSpace, FlexSpaceProps } from '../../disposition'
 import { ButtonProps } from 'antd/lib/button'
 
-export declare type ErrorBoundaryProps = {
+export declare type ErrorBoundaryProps = FlexSpaceProps & {
   icon?: React.ExoticComponent<any>
   iconClassName?: string
   title?: React.ReactNode
@@ -16,6 +16,8 @@ export declare type ErrorBoundaryProps = {
   buttonProps?: ButtonProps
   buttonText?: React.ReactNode
   ignoreButton?: boolean
+  mode?: 'replace' | 'overlay'
+  bgOpacity?: number | string
   renderContent?: (error: any, info: any) => React.ReactNode
 }
 
@@ -30,7 +32,8 @@ export default class ErrorBoundary extends React.Component<
   ErrorBoundaryState
 > {
   static defaultProps = {
-    ignoreButton: false
+    ignoreButton: false,
+    mode: 'replace'
   }
 
   constructor(props: ErrorBoundaryProps) {
@@ -57,57 +60,90 @@ export default class ErrorBoundary extends React.Component<
       ignoreButton,
       iconClassName,
       titleClassName,
-      descriptionClassName
+      descriptionClassName,
+      mode,
+      style,
+      items,
+      justify,
+      className: parentClassName,
+      bgOpacity,
+      ...propsRest
     } = this.props
+
+    // button props explode
     const { type, className, ...buttonPropsRest } = buttonProps ?? {}
 
-    if (this.state.hasError) {
-      // if the hasError state boolean is true, it returns this to tell the user an error has occurred
-      return renderContent ? (
-        renderContent(this.state.error, this.state.info)
-      ) : (
-        <FlexSpace
-          items='center'
-          justify='center'
-          className={clsx(['w-screen h-screen'])}
-        >
-          <FlexSpace direction='vertical' items='center' justify='center'>
-            {React.createElement(icon ?? FrownOutlined, {
-              className: clsx(['text-2xl', iconClassName])
-            })}
-            <span className={clsx([titleClassName, 'font-extrabold text-lg'])}>
-              {title ??
-                'Sorry! Something went wrong while displaying this view'}
-            </span>
-            <span
-              className={clsx([descriptionClassName, 'text-base font-thin'])}
+    // export error component props
+    const { backdropFilter, ...styleRest } = style ?? {}
+
+    return (
+      <React.Fragment>
+        {this.state.hasError ? (
+          renderContent ? (
+            renderContent(this.state.error, this.state.info)
+          ) : (
+            <FlexSpace
+              items={items ?? 'center'}
+              justify={justify ?? 'center'}
+              className={clsx([
+                parentClassName,
+                'w-screen h-screen',
+                { 'absolute z-10 bg-white': mode === 'overlay' }
+              ])}
+              {...propsRest}
+              style={
+                {
+                  backdropFilter:
+                    backdropFilter ?? mode === 'overlay'
+                      ? 'blur(2.5px)'
+                      : undefined,
+                  '--bg-opacity': bgOpacity ?? 0.83,
+                  ...styleRest
+                } as any
+              }
             >
-              {description ??
-                'Brace yourself till our technical team take care of the problem. You may also refresh this page or try again later please.'}
-            </span>
-            {!ignoreButton && (
-              <div className='pt-4'>
-                {button ?? (
-                  <CButton
-                    type={type ?? 'primary'}
-                    className={clsx(['rounded-full', className])}
-                    {...buttonPropsRest}
-                  >
-                    {buttonText ?? (
-                      <FlexSpace items='center'>
-                        <BackwardOutlined /> <span>Go to home page</span>
-                      </FlexSpace>
+              <FlexSpace direction='vertical' items='center' justify='center'>
+                {React.createElement(icon ?? FrownOutlined, {
+                  className: clsx(['text-5xl', iconClassName])
+                })}
+                <span className={clsx([titleClassName, 'font-bold text-lg'])}>
+                  {title ??
+                    'Sorry! Something went wrong while displaying this view'}
+                </span>
+                <span
+                  className={clsx([
+                    descriptionClassName,
+                    'text-base font-thin'
+                  ])}
+                >
+                  {description ??
+                    'Brace yourself till our technical team take care of the problem. You may also refresh this page or try again later please.'}
+                </span>
+                {!ignoreButton && (
+                  <div className='pt-4'>
+                    {button ?? (
+                      <CButton
+                        type={type ?? 'primary'}
+                        className={clsx(['rounded-full', className])}
+                        {...buttonPropsRest}
+                      >
+                        {buttonText ?? (
+                          <FlexSpace items='center'>
+                            <ArrowLeftOutlined /> <span>Go to home page</span>
+                          </FlexSpace>
+                        )}
+                      </CButton>
                     )}
-                  </CButton>
+                  </div>
                 )}
-              </div>
-            )}
-          </FlexSpace>
-        </FlexSpace>
-      )
-    } else {
-      // if there is no error the children components are returned so there are rendered.
-      return this.props.children
-    }
+              </FlexSpace>
+            </FlexSpace>
+          )
+        ) : undefined}
+        {((this.state.hasError && mode === 'overlay') ||
+          !this.state.hasError) &&
+          this.props.children}
+      </React.Fragment>
+    )
   }
 }
