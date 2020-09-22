@@ -124,7 +124,7 @@ export default class ErrorBoundary extends React.Component<
                     {button ?? (
                       <CButton
                         type={type ?? 'primary'}
-                        className={clsx(['rounded-full', className])}
+                        className={clsx(['rounded-full capitalize', className])}
                         {...buttonPropsRest}
                       >
                         {buttonText ?? (

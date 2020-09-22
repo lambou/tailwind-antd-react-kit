@@ -78,13 +78,6 @@ const FlexSpace = React.forwardRef<HTMLDivElement, FlexSpaceProps>(
       return isBreaking() === true || (!!direction && direction === 'vertical')
     }
 
-    // /**
-    //  * Align items horizontally
-    //  */
-    // const isHorizontal = () => {
-    //   return isBreaking() === false || direction === 'horizontal'
-    // }
-
     const modifyChildren = (
       child: any,
       index: number,
@@ -140,7 +133,9 @@ const FlexSpace = React.forwardRef<HTMLDivElement, FlexSpaceProps>(
                 className: clsx([
                   className,
                   itemClass,
-                  isBreaking() ? breakpointItemClass : undefined
+                  isBreaking() && index > 0 && index < childrenLengh - 1
+                    ? breakpointItemClass
+                    : undefined
                 ]),
                 style: newStyle,
                 ...propsRest

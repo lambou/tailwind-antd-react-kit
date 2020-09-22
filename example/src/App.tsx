@@ -16,10 +16,20 @@ import 'tailwind-antd-react-kit/dist/index.css'
 import './index.less'
 import Button from 'antd/lib/button'
 import Avatar from 'antd/lib/avatar/avatar'
+import { useHistory } from 'react-router-dom'
 
 const App = () => {
+  const history = useHistory()
+
   return (
-    <ErrorBoundary mode="replace">
+    <ErrorBoundary
+      buttonProps={{
+        onClick: () => {
+          history.push('/')
+        }
+      }}
+      mode='replace'
+    >
       <ErrorWrapper errors={[]}>
         <Container>
           <FlexSpace marginY direction='vertical' justify='center'>
