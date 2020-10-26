@@ -5,10 +5,11 @@ import { CButton } from '../../button'
 import { FlexSpace, FlexSpaceProps } from '../../disposition'
 import { ButtonProps } from 'antd/lib/button'
 
-export declare type ErrorBoundaryProps = FlexSpaceProps & {
+export declare type ErrorBoundaryProps = Omit<FlexSpaceProps, 'title'> & {
   icon?: React.ExoticComponent<any>
   iconClassName?: string
   title?: React.ReactNode
+  htmlTitle?: string
   titleClassName?: string
   description?: React.ReactNode
   descriptionClassName?: string
@@ -53,6 +54,7 @@ export default class ErrorBoundary extends React.Component<
       renderContent,
       icon,
       title,
+      htmlTitle,
       description,
       buttonProps,
       buttonText,
@@ -83,6 +85,7 @@ export default class ErrorBoundary extends React.Component<
             renderContent(this.state.error, this.state.info)
           ) : (
             <FlexSpace
+              title={htmlTitle}
               items={items ?? 'center'}
               justify={justify ?? 'center'}
               className={clsx([
