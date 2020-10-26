@@ -76,7 +76,7 @@ export default class Backend {
     // update instance
     Backend.instance = new Backend({
       ...rest,
-      headers: merge ? Obj.merge(headers, configHeaders) : headers
+      headers: merge ? Obj.merge(headers ?? {}, configHeaders ?? {}) : headers
     })
   }
 
