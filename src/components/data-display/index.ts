@@ -1,0 +1,6 @@
+export { default as Person } from './Person'
+export type { PersonProps } from './Person'
+export { default as ActivityItem } from './ActivityItem'
+export type { ActivityItemProps } from './ActivityItem'
+export type { AvatarsProps } from './Avatars'
+export { default as Avatars } from './Avatars'

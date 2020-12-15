@@ -1,0 +1,56 @@
+.counter {
+  --bg-color: #f3f3f3;
+  --base-color: #666;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+  width: 70px;
+  margin: 10% auto;
+  border: 3px solid var(--base-color);
+  border-radius: 5px;
+  color: var(--base-color);
+  background-color: var(--bg-color);
+  cursor: pointer;
+  overflow: hidden;
+
+  &:hover {
+    color: var(--bg-color);
+    background-color: var(--base-color);
+    border-color: var(--bg-color);
+  }
+
+  &__count {
+    font-size: 2rem;
+    font-family: "Segoe UI", sans-serif;
+    color: inherit;
+
+    animation: in 1s ease alternate forwards;
+    pointer-events: none;
+  }
+}
+
+@keyframes in {
+  0% {
+    transform: translateY(-200%);
+  }
+
+  50% {
+    color: inherit;
+    font-size: 2.2rem;
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  90% {
+    opacity: 0;
+    color: var(--blaze);
+  }
+
+  100% {
+    transform: translateY(+200%);
+    font-size: 1.8rem;
+    opacity: 0;
+  }
+}
