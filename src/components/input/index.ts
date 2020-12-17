@@ -1,5 +1,5 @@
-export { default as AutoCompleteInput } from './AutoCompleteInput'
-export type { AutoCompleteInputProps } from './AutoCompleteInput'
+export { default as AutoCompleteInput } from './AutocompleteInput'
+export type { AutoCompleteInputProps } from './AutocompleteInput'
 export { default as RemoteSelect } from './RemoteSelect'
 export type { RemoteSelectProps } from './RemoteSelect'
 export { default as TagInput, TagInputValidators } from './TagInput'
