@@ -1,5 +1,4 @@
 import React from 'react'
-import { ExampleComponent } from 'tailwind-antd-react-kit'
 import {
   FlexSpace,
   Container,
@@ -12,7 +11,6 @@ import {
   Avatars
 } from 'tailwind-antd-react-kit'
 import { UserOutlined } from '@ant-design/icons'
-import 'tailwind-antd-react-kit/dist/index.css'
 import './index.less'
 import Button from 'antd/lib/button'
 import Avatar from 'antd/lib/avatar/avatar'
@@ -33,8 +31,6 @@ const App = () => {
       <ErrorWrapper errors={[]}>
         <Container>
           <FlexSpace marginY direction='vertical' justify='center'>
-            <ExampleComponent text='Create React Library Example 😄' />
-            <ExampleComponent text='Create React Library Example 😄' />
             <CButton className='rounded-full'>H</CButton>
             <Button className='rounded-full'>Hey</Button>
             <span className='font-bold text-lg'>Person</span>

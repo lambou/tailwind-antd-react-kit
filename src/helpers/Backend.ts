@@ -1,11 +1,9 @@
 import { Obj } from '@noreajs/common'
-import axios, {
-  AxiosInstance,
+import {
+  AxiosError, AxiosInstance,
   AxiosRequestConfig,
-  AxiosResponse,
-  AxiosError
+  AxiosResponse, default as axios, default as Axios
 } from 'axios'
-import Axios from 'axios'
 import IError from '../interfaces/IError'
 
 export type ErrorMessageExtractorFuncType<T = any> = (

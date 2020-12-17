@@ -1,9 +1,9 @@
-import React from 'react'
 import Card, { CardProps } from 'antd/lib/card'
-import CustomSpace from '../../disposition/FlexSpace'
+import React from 'react'
+import FlexSpace from '../../disposition/FlexSpace'
 
 export declare type CCardProps = CardProps & {
-  titleIcon?: React.ForwardRefExoticComponent<any>
+  titleIcon?: React.ReactNode,
   titleSuffix?: React.ReactNode
 }
 
@@ -30,14 +30,11 @@ const CCard: React.FC<CCardProps> = (props) => {
     <Card
       title={
         (titleIcon || title || titleSuffix) && (
-          <CustomSpace className='items-center justify-start'>
-            {titleIcon &&
-              React.createElement(titleIcon, {
-                className: 'text-blue-500'
-              })}
+          <FlexSpace items="center" justify="start">
+            {titleIcon}
             <span className='flex-auto'>{title}</span>
             {titleSuffix}
-          </CustomSpace>
+          </FlexSpace>
         )
       }
       bordered={bordered ?? true}

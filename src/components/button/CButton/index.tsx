@@ -1,22 +1,17 @@
-import React from 'react'
-import styled from 'styled-components'
-import { Button } from 'antd'
-import tw from 'twin.macro'
-import { ButtonProps } from 'antd/lib/button'
+import { Button } from "antd";
+import { ButtonProps } from "antd/lib/button";
+import clsx from "clsx";
+import React from "react";
 
-const SButton = styled(Button)`
-  ${tw`inline-flex items-center justify-center`}
-`
-
-export declare type CButtonProps = ButtonProps & {}
+export declare type CButtonProps = ButtonProps & {};
 
 const CButton = React.forwardRef<HTMLElement, CButtonProps>((props, ref) => {
-  const { children, ...propsRest } = props
+  const { children, className, ...propsRest } = props;
   return (
-    <SButton ref={ref} {...propsRest}>
+    <Button ref={ref} className={clsx([className, "inline-flex items-center justify-center"])} {...propsRest}>
       {children}
-    </SButton>
-  )
-})
+    </Button>
+  );
+});
 
-export default CButton
+export default CButton;

@@ -1,7 +1,7 @@
-import React, { useState, ReactNode, useEffect } from 'react'
-import Select, { SelectProps, SelectValue, OptionProps } from 'antd/lib/select'
+import { notification, Spin } from 'antd'
+import Select, { OptionProps, SelectProps, SelectValue } from 'antd/lib/select'
 import Axios from 'axios'
-import { Spin, notification } from 'antd'
+import React, { ReactNode, useEffect, useState } from 'react'
 import Backend from '../../../helpers/Backend'
 
 export declare type RemoteSelectProps<ResponseItemType = any> = SelectProps<
@@ -19,7 +19,7 @@ export declare type RemoteSelectProps<ResponseItemType = any> = SelectProps<
   errorMessage?: ReactNode
 }
 
-const RemoteSelect = React.forwardRef<Select, RemoteSelectProps>(
+const RemoteSelect = React.forwardRef<any, RemoteSelectProps>(
   (props, ref) => {
     // explode props
     const {

@@ -4,7 +4,7 @@ import { EyeOutlined } from '@ant-design/icons'
 import styled from 'styled-components'
 import { ModalProps } from 'antd/lib/modal'
 import { Modal, Button } from 'antd'
-import tw from 'twin.macro'
+const tw = require("twin.macro");
 
 const SModal = styled(Modal)`
   .ant-modal-content {

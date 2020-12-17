@@ -1,4 +1,4 @@
-import path from "path";
+import { basename, extname } from "path";
 import Backend from "./Backend";
 
 /**
@@ -9,7 +9,7 @@ export const getMediaInfo = (mediaPath: string) => {
   const url = `${Backend.getInstance().BASE_URL}${mediaPath}`;
   return {
     url: url,
-    fileName: path.basename(url),
-    extension: path.extname(url),
+    fileName: basename(url),
+    extension: extname(url),
   };
 };

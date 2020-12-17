@@ -3,7 +3,7 @@ import { Modal } from "antd";
 import { ModalProps } from "antd/lib/modal";
 import CustomSpace from "../../disposition/FlexSpace";
 import styled from "styled-components";
-import tw from "twin.macro";
+const tw = require("twin.macro");
 
 const SModal = styled(Modal)`
   .ant-modal-content {

@@ -1,30 +1,30 @@
-import React from 'react'
-import { AutoComplete, Select } from 'antd'
-import styled from 'styled-components'
-import { AutoCompleteProps } from 'antd/lib/auto-complete'
-import tw from 'twin.macro'
+import { AutoComplete } from "antd";
+import { AutoCompleteProps } from "antd/lib/auto-complete";
+import React from "react";
+import styled from "styled-components";
+const tw = require("twin.macro");
 
 const SAutocomplete = styled(AutoComplete)`
   .ant-select-selector {
     ${tw`border-none`}
   }
-`
+`;
 
-export type AutoCompleteInputProps = AutoCompleteProps
+export type AutoCompleteInputProps = AutoCompleteProps;
 
 const AutocompleteInput: React.FC<AutoCompleteInputProps> = React.forwardRef<
-  Select,
+  any,
   AutoCompleteInputProps
 >((props: AutoCompleteInputProps, ref) => {
-  const { children, ...rest } = props
+  const { children, ...rest } = props;
   return React.createElement(
     SAutocomplete,
     {
       ref: ref,
-      ...rest
+      ...rest,
     },
     children
-  )
-})
+  );
+});
 
-export default AutocompleteInput
+export default AutocompleteInput;
