@@ -8,8 +8,7 @@ import confirm from 'antd/lib/modal/confirm'
 export declare type PromptConfirmProps = {
   title: React.ReactNode
   trigger: React.ReactNode
-  formContent: React.ReactNode
-  formProps?: FormProps
+  formProps?: Omit<FormProps, 'form'>
   confirmProps?: ModalFuncProps
   initialValues?: any
   onSubmit?: (values: Store) => boolean | Promise<boolean>
@@ -36,7 +35,7 @@ const PromptConfirm: React.FC<PromptConfirmProps> = React.forwardRef<
       title: title ?? props.title,
       centered: centered ?? true,
       maskClosable: maskClosable ?? false,
-      content: content ?? <Form {...(props.formProps ?? {})} />,
+      content: content ?? <Form form={form} {...(props.formProps ?? {})} />,
       onOk: () => {
         return new Promise(async (resolve, reject) => {
           try {
