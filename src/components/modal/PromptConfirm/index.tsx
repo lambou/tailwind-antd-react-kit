@@ -35,7 +35,11 @@ const PromptConfirm: React.FC<PromptConfirmProps> = React.forwardRef<
       title: title ?? props.title,
       centered: centered ?? true,
       maskClosable: maskClosable ?? false,
-      content: content ?? <Form form={form} {...props.formProps} />,
+      content: (
+        <Form form={form} {...props.formProps}>
+          {content}
+        </Form>
+      ),
       onOk: () => {
         return new Promise(async (resolve, reject) => {
           try {
