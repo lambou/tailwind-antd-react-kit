@@ -1,29 +1,26 @@
+import { UserOutlined } from '@ant-design/icons'
+import { Form, Input, Typography } from 'antd'
+import Avatar from 'antd/lib/avatar/avatar'
+import Button from 'antd/lib/button'
+import { Store } from 'antd/lib/form/interface'
 import React from 'react'
+import { useHistory } from 'react-router-dom'
 import {
-  FlexSpace,
-  Container,
-  CButton,
-  ErrorBoundary,
-  ErrorWrapper,
-  Person,
-  TagInput,
   ActivityItem,
   Avatars,
-  PromptConfirm
+  CButton,
+  Container,
+  ErrorBoundary,
+  ErrorWrapper,
+  FlexSpace,
+  Person,
+  PromptConfirm,
+  TagInput
 } from 'tailwind-antd-react-kit'
-import { UserOutlined } from '@ant-design/icons'
 import './index.less'
-import Button from 'antd/lib/button'
-import Avatar from 'antd/lib/avatar/avatar'
-import { useHistory } from 'react-router-dom'
-import { Form, Input, Typography } from 'antd'
-import { useForm } from 'antd/lib/form/Form'
-import { Store } from 'antd/lib/form/interface'
 
 const App: React.FC = () => {
   const history = useHistory()
-  const [form] = useForm()
-
   return (
     <ErrorBoundary
       buttonProps={{
@@ -95,21 +92,26 @@ const App: React.FC = () => {
           </Typography.Title>
           <PromptConfirm
             trigger={<CButton>Confirm</CButton>}
-            formContent={<></>}
             title='You identify'
             onSubmit={(_values: Store) => {
-              return false;
+              return false
             }}
             formProps={{
-              
-              form: form,
               className: 'py-4',
               children: (
                 <React.Fragment>
-                  <Form.Item label='First Name' required>
+                  <Form.Item
+                    label='First Name'
+                    name="first_name"
+                    rules={[
+                      { required: true, message: 'The first name is required' }
+                    ]}
+                  >
                     <Input type='text' />
                   </Form.Item>
-                  <Form.Item label='Last Name' required>
+                  <Form.Item label='Last Name' name="last_name" rules={[
+                      { required: true, message: 'The first name is required' }
+                    ]}>
                     <Input type='text' />
                   </Form.Item>
                 </React.Fragment>
