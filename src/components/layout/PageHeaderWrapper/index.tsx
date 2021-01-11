@@ -1,23 +1,19 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { Card } from 'antd'
 import { CardTabListType } from 'antd/lib/card'
 import CustomSpace from '../../disposition/FlexSpace'
 import clsx from 'clsx'
 
-export declare type PageHeaderWrapperProps = React.HTMLAttributes<HTMLDivElement> & {
+export declare type PageHeaderWrapperProps = React.HTMLAttributes<
+  HTMLDivElement
+> & {
   breadcrumb?: React.ReactNode
   title?: React.ReactNode
   titleExtra?: React.ReactNode
   content?: React.ReactNode
   contentExtra?: React.ReactNode
   tabList?: CardTabListType[]
-  activeTabKey?: string
   onTabChange?: (key: string) => void
-}
-
-export declare type PageHeaderWrapperState = {
-  tabList?: CardTabListType[]
-  activeTabKey?: string
 }
 
 const PageHeaderWrapper = React.forwardRef<
@@ -32,33 +28,10 @@ const PageHeaderWrapper = React.forwardRef<
     content,
     contentExtra,
     tabList,
-    activeTabKey,
     onTabChange,
     children,
     ...propsRest
   } = props
-
-  /**
-   * Initializing local state
-   */
-  const [localState, setLocalState] = useState<PageHeaderWrapperState>({
-    tabList,
-    activeTabKey
-  })
-
-  /**
-   * On props changes
-   */
-  useEffect(() => {
-    setLocalState(() => {
-      return {
-        tabList: tabList,
-        activeTabKey: activeTabKey
-      }
-    })
-    
-    // eslint-disable-next-line
-  }, [tabList, activeTabKey])
 
   return (
     <div ref={ref} {...propsRest}>
@@ -87,9 +60,8 @@ const PageHeaderWrapper = React.forwardRef<
         )}
       </div>
       <Card
-        tabList={localState?.tabList}
+        tabList={tabList}
         onTabChange={onTabChange}
-        activeTabKey={localState?.activeTabKey}
         className='w-full bg-transparent'
         headStyle={{ background: 'white' }}
         bordered={false}
