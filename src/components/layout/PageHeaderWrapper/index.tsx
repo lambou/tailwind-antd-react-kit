@@ -4,15 +4,14 @@ import { CardTabListType } from 'antd/lib/card'
 import CustomSpace from '../../disposition/FlexSpace'
 import clsx from 'clsx'
 
-export declare type PageHeaderWrapperProps = React.HTMLAttributes<
-  HTMLDivElement
-> & {
+export declare type PageHeaderWrapperProps = React.HTMLAttributes<HTMLDivElement> & {
   breadcrumb?: React.ReactNode
   title?: React.ReactNode
   titleExtra?: React.ReactNode
   content?: React.ReactNode
   contentExtra?: React.ReactNode
   tabList?: CardTabListType[]
+  activeTabKey?: string
   onTabChange?: (key: string) => void
 }
 
@@ -28,6 +27,7 @@ const PageHeaderWrapper = React.forwardRef<
     content,
     contentExtra,
     tabList,
+    activeTabKey,
     onTabChange,
     children,
     ...propsRest
@@ -62,6 +62,7 @@ const PageHeaderWrapper = React.forwardRef<
       <Card
         tabList={tabList}
         onTabChange={onTabChange}
+        activeTabKey={activeTabKey}
         className='w-full bg-transparent'
         headStyle={{ background: 'white' }}
         bordered={false}

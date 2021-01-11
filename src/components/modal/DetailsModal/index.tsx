@@ -4,7 +4,7 @@ import { EyeOutlined } from '@ant-design/icons'
 import styled from 'styled-components'
 import { ModalProps } from 'antd/lib/modal'
 import { Modal, Button } from 'antd'
-const tw = require("twin.macro");
+const tw = require('twin.macro')
 
 const SModal = styled(Modal)`
   .ant-modal-content {
@@ -18,13 +18,17 @@ const SModal = styled(Modal)`
 
 export declare type DetailsModalProps = ModalProps & {
   title?: React.ReactNode
-  titleIcon?: React.ForwardRefExoticComponent<any>
+  titleClassName?: string
+  titleIcon?: React.ComponentType<any>
+  titleIconClassName?: string
 }
 const DetailsModal: React.FC<DetailsModalProps> = (props) => {
   // explose props
   const {
     title,
+    titleClassName,
     titleIcon,
+    titleIconClassName,
     centered,
     keyboard,
     children,
@@ -38,9 +42,16 @@ const DetailsModal: React.FC<DetailsModalProps> = (props) => {
       title={
         <CustomSpace className='items-center'>
           {React.createElement(titleIcon ?? EyeOutlined, {
-            className: 'text-xl text-blue-500'
+            className: titleIconClassName
           })}
-          <span className='font-semibold text-xl'>{title}</span>
+          <span
+            className={
+              titleClassName ??
+              (titleClassName === undefined ? 'font-semibold text-xl' : '')
+            }
+          >
+            {title}
+          </span>
         </CustomSpace>
       }
       footer={
