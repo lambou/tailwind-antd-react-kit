@@ -28,6 +28,7 @@ const DetailsModal: React.FC<DetailsModalProps> = (props) => {
     titleClassName,
     titleIcon,
     titleIconClassName,
+    okText,
     centered,
     keyboard,
     children,
@@ -55,7 +56,7 @@ const DetailsModal: React.FC<DetailsModalProps> = (props) => {
               className='rounded-full'
               type='primary'
             >
-              Ok
+              {okText ?? 'Ok'}
             </Button>
           </div>
         )
