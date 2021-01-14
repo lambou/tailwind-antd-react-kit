@@ -17,9 +17,9 @@ const SModal = styled(Modal)`
 
 export declare type DetailsModalProps = ModalProps & {
   title?: React.ReactNode
-  titleClassName?: string | null
-  titleIcon?: React.ComponentType<any> | null
-  titleIconClassName?: string | null
+  titleClassName?: string
+  titleIcon?: React.ComponentType<any>
+  titleIconClassName?: string
 }
 const DetailsModal: React.FC<DetailsModalProps> = (props) => {
   // explose props
@@ -32,7 +32,6 @@ const DetailsModal: React.FC<DetailsModalProps> = (props) => {
     keyboard,
     children,
     footer,
-    okText,
     ...propsRest
   } = props
   return (
@@ -45,14 +44,7 @@ const DetailsModal: React.FC<DetailsModalProps> = (props) => {
             React.createElement(titleIcon, {
               className: titleIconClassName
             })}
-          <span
-            className={
-              titleClassName ??
-              (titleClassName === undefined ? 'font-semibold text-xl' : '')
-            }
-          >
-            {title}
-          </span>
+          <span className={titleClassName}>{title}</span>
         </CustomSpace>
       }
       footer={
@@ -63,7 +55,7 @@ const DetailsModal: React.FC<DetailsModalProps> = (props) => {
               className='rounded-full'
               type='primary'
             >
-              {okText ?? 'Ok'}
+              Ok
             </Button>
           </div>
         )
