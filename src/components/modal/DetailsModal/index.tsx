@@ -1,4 +1,3 @@
-import { EyeOutlined } from '@ant-design/icons'
 import { Button, Modal } from 'antd'
 import { ModalProps } from 'antd/lib/modal'
 import React from 'react'
@@ -42,8 +41,8 @@ const DetailsModal: React.FC<DetailsModalProps> = (props) => {
       keyboard={keyboard ?? false}
       title={
         <CustomSpace className='items-center'>
-          {titleIcon !== null &&
-            React.createElement(titleIcon ?? EyeOutlined, {
+          {titleIcon &&
+            React.createElement(titleIcon, {
               className: titleIconClassName
             })}
           <span
