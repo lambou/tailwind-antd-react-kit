@@ -1,9 +1,9 @@
-import React from 'react'
-import CustomSpace from '../../disposition/FlexSpace'
 import { EyeOutlined } from '@ant-design/icons'
-import styled from 'styled-components'
+import { Button, Modal } from 'antd'
 import { ModalProps } from 'antd/lib/modal'
-import { Modal, Button } from 'antd'
+import React from 'react'
+import styled from 'styled-components'
+import CustomSpace from '../../disposition/FlexSpace'
 const tw = require('twin.macro')
 
 const SModal = styled(Modal)`
@@ -18,9 +18,9 @@ const SModal = styled(Modal)`
 
 export declare type DetailsModalProps = ModalProps & {
   title?: React.ReactNode
-  titleClassName?: string
-  titleIcon?: React.ComponentType<any>
-  titleIconClassName?: string
+  titleClassName?: string | null
+  titleIcon?: React.ComponentType<any> | null
+  titleIconClassName?: string | null
 }
 const DetailsModal: React.FC<DetailsModalProps> = (props) => {
   // explose props
@@ -33,6 +33,7 @@ const DetailsModal: React.FC<DetailsModalProps> = (props) => {
     keyboard,
     children,
     footer,
+    okText,
     ...propsRest
   } = props
   return (
@@ -41,9 +42,10 @@ const DetailsModal: React.FC<DetailsModalProps> = (props) => {
       keyboard={keyboard ?? false}
       title={
         <CustomSpace className='items-center'>
-          {React.createElement(titleIcon ?? EyeOutlined, {
-            className: titleIconClassName
-          })}
+          {titleIcon !== null &&
+            React.createElement(titleIcon ?? EyeOutlined, {
+              className: titleIconClassName
+            })}
           <span
             className={
               titleClassName ??
@@ -62,7 +64,7 @@ const DetailsModal: React.FC<DetailsModalProps> = (props) => {
               className='rounded-full'
               type='primary'
             >
-              Ok
+              {okText ?? 'Ok'}
             </Button>
           </div>
         )
