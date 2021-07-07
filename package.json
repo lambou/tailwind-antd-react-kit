@@ -1,6 +1,6 @@
 {
   "name": "tailwind-antd-react-kit",
-  "version": "1.4.0",
+  "version": "1.4.1-0",
   "main": "dist/index.ts",
   "types": "dist/index.d.ts",
   "private": false,
