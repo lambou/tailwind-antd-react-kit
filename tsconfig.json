@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "declaration": true,
-    "noEmit": true,
+    "emitDeclarationOnly": true,
     "target": "es5",
     "lib": [
       "dom",
@@ -20,7 +20,9 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "downlevelIteration": true,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "outDir": "dist",
+    "sourceMap": false,
   },
   "include": [
     "src/components/**/*"
