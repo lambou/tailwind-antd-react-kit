@@ -1,5 +1,5 @@
 import React from "react";
-import CustomSpace from "../components/disposition/FlexSpace";
+import FlexSpace from "../disposition/FlexSpace";
 
 /**
  * Format error message from https
@@ -15,11 +15,11 @@ export const formatErrorMessage = (
       return <div>{error}</div>;
     } else if (Array.isArray(error)) {
       return (
-        <CustomSpace direction="vertical" marginY>
+        <FlexSpace direction="vertical" marginY>
           {error.map((value, index) => (
             <div key={index}>{value}</div>
           ))}
-        </CustomSpace>
+        </FlexSpace>
       );
     } else {
       return fallbackMessage;
