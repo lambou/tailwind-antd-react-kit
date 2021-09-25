@@ -177,8 +177,11 @@ const ErrorWrapper = React.forwardRef<HTMLDivElement, ErrorWrapperProps>(
                                   error.refreshCallback();
                               }
                             }}
-                            className={buttonClassName ?? "rounded-md"}
-                            type={buttonType ?? "primary"}
+                            className={
+                              buttonClassName ??
+                              "inline-flex items-center justify-center"
+                            }
+                            type={buttonType}
                             {...restButtonProps}
                           >
                             {refreshButtonText ?? "Refresh"}
@@ -190,9 +193,9 @@ const ErrorWrapper = React.forwardRef<HTMLDivElement, ErrorWrapperProps>(
                               onClick={() => {}}
                               className={
                                 buttonClassName ??
-                                "rounded-md flex items-center justify-center"
+                                "inline-flex items-center justify-center"
                               }
-                              type={buttonType ?? "primary"}
+                              type={buttonType}
                               {...restButtonProps}
                             >
                               {goToHomePageButtonText ?? "Back to home page"}
@@ -206,9 +209,9 @@ const ErrorWrapper = React.forwardRef<HTMLDivElement, ErrorWrapperProps>(
                             }}
                             className={
                               buttonClassName ??
-                              "rounded-md flex items-center justify-center"
+                              "inline-flex items-center justify-center"
                             }
-                            type={buttonType ?? "primary"}
+                            type={buttonType}
                             {...restButtonProps}
                           >
                             {refreshButtonText ?? "Refresh"}
