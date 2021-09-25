@@ -49,6 +49,12 @@ const ErrorWrapper = React.forwardRef<HTMLDivElement, ErrorWrapperProps>(
       ...propsRest
     } = props;
 
+    // error message ref
+    const [
+      errorContainerDiv,
+      setErrorContainerDiv,
+    ] = useState<HTMLDivElement | null>(null);
+
     // button props
     const {
       icon: buttonIcon,
@@ -93,29 +99,45 @@ const ErrorWrapper = React.forwardRef<HTMLDivElement, ErrorWrapperProps>(
       setInternalErrors(props.errors);
     }, [props.errors]);
 
-    return (
+    return errors.length !== 0 ? (
       <Spin spinning={loading} {...spinProps}>
-        {errors.length !== 0 ? (
-          <div className="relative">
+        <div
+          style={{
+            minHeight: `${
+              errorContainerDiv?.offsetHeight
+                ? `${errorContainerDiv?.offsetHeight}px`
+                : "auto"
+            }`,
+          }}
+          className="relative flex items-center justify-center overflow-y-auto"
+        >
+          <div
+            ref={ref}
+            className={clsx([
+              "flex items-center justify-center flex-col w-full h-full",
+              mode === "overlay"
+                ? ["absolute bg-white bg-opacity-75", overlayClassName].join(
+                    " "
+                  )
+                : "",
+            ])}
+            style={{
+              backdropFilter:
+                backdropFilter ?? mode === "overlay"
+                  ? "blur(2.5px)"
+                  : undefined,
+              ...styleRest,
+            }}
+            {...propsRest}
+          >
             <div
-              ref={ref}
               className={clsx([
                 className,
-                "flex items-center justify-center w-full h-full p-8",
-                mode === "overlay"
-                  ? ["absolute bg-white bg-opacity-75", overlayClassName].join(
-                      " "
-                    )
-                  : "",
+                "flex items-center justify-center p-8",
               ])}
-              style={{
-                backdropFilter:
-                  backdropFilter ?? mode === "overlay"
-                    ? "blur(2.5px)"
-                    : undefined,
-                ...styleRest,
+              ref={(instance) => {
+                setErrorContainerDiv(instance);
               }}
-              {...propsRest}
             >
               {renderError ? (
                 renderError(internalErrors)
@@ -198,19 +220,21 @@ const ErrorWrapper = React.forwardRef<HTMLDivElement, ErrorWrapperProps>(
                 </div>
               )}
             </div>
-
-            {mode === "overlay" &&
-              React.createElement(
-                "div",
-                {
-                  className: "pointer-events-none",
-                },
-                props.children
-              )}
           </div>
-        ) : (
-          <React.Fragment>{props.children}</React.Fragment>
-        )}
+
+          {mode === "overlay" &&
+            React.createElement(
+              "div",
+              {
+                className: "pointer-events-none",
+              },
+              props.children
+            )}
+        </div>
+      </Spin>
+    ) : (
+      <Spin spinning={loading} {...spinProps}>
+        {props.children}
       </Spin>
     );
   }
