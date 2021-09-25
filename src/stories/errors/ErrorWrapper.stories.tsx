@@ -91,11 +91,11 @@ WithErrors.args = {
         "This is an error message for test, don't take it seriously sir.. please.",
     },
   ],
-  label: "ErrorWrapper",
+  label: "With errors",
 };
 
 export const WithoutErrors = Template.bind({});
 WithoutErrors.args = {
   errors: [],
-  label: "ErrorWrapper",
+  label: "Without errors",
 };

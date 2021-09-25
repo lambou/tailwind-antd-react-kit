@@ -16,7 +16,6 @@ npm install --save tailwind-antd-react-kit
 import React, { Component } from "react";
 
 import { MyComponent } from "tailwind-antd-react-kit";
-import "tailwind-antd-react-kit/dist/index.css";
 
 class Example extends Component {
   render() {
@@ -27,7 +26,7 @@ class Example extends Component {
 
 ## Docs
 
-[Documentation](https://lambou.github.io/tailwind-antd-react-kit) based on [Storybook](https://storybook.js.org/)
+[Documentation available here](https://lambou.github.io/tailwind-antd-react-kit)
 
 ## License
 
