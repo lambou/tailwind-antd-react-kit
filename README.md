@@ -13,17 +13,21 @@ npm install --save tailwind-antd-react-kit
 ## Usage
 
 ```tsx
-import React, { Component } from 'react'
+import React, { Component } from "react";
 
-import MyComponent from 'tailwind-antd-react-kit'
-import 'tailwind-antd-react-kit/dist/index.css'
+import { MyComponent } from "tailwind-antd-react-kit";
+import "tailwind-antd-react-kit/dist/index.css";
 
 class Example extends Component {
   render() {
-    return <MyComponent />
+    return <MyComponent />;
   }
 }
 ```
+
+## Docs
+
+[Documentation](https://lambou.github.io/tailwind-antd-react-kit) based on [Storybook](https://storybook.js.org/)
 
 ## License
 

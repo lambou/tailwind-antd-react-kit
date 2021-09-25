@@ -279,7 +279,11 @@ const ErrorWrapper = React.forwardRef<HTMLDivElement, ErrorWrapperProps>(
                       fontSize: "4rem",
                     }
                   )}
-                  <div className="text-2xl font-bold text-red-500">
+                  <div
+                    className={
+                      customize?.titleClass ?? "text-2xl font-bold text-red-500"
+                    }
+                  >
                     {isInternetAccessProblem(errors)
                       ? "No internet access"
                       : "Something went wrong!"}

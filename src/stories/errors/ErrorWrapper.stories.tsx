@@ -21,7 +21,7 @@ export default {
     },
     spinProps: {},
     mode: {
-      defaultValue: "replace",
+      defaultValue: "overlay",
     },
     renderError: {},
     customize: {
@@ -55,13 +55,29 @@ export default {
 
 const Template: ComponentStory<typeof ErrorWrapper> = (args) => (
   <ErrorWrapper {...args}>
-    <h1>Content wrapped</h1>
-    <p>
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem
-      consequuntur facilis nisi optio magnam molestiae, tempore quo veniam
-      expedita est rerum, a neque odit quibusdam nostrum. Id impedit adipisci
-      ullam!
-    </p>
+    <div className="flex flex-row">
+      <div className="flex flex-col gap-2 w-1/2">
+        <h1 className="text-5xl font-bold">Content wrapped</h1>
+        <p className="text-2xl font-light">
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem
+          consequuntur facilis nisi optio magnam molestiae, tempore quo veniam
+          expedita est rerum, a neque odit quibusdam nostrum. Id impedit
+          adipisci ullam! Lorem ipsum dolor sit, amet consectetur adipisicing
+          elit. Culpa aliquam vel ipsam ex? Voluptas assumenda cupiditate
+          nostrum magnam saepe, incidunt natus eum repellat voluptatem fugiat in
+          dolorum! Nisi, non asperiores!
+        </p>
+      </div>
+      <div className="w-1/2 flex items-center justify-center">
+        <img
+          className="rounded-md"
+          height="280"
+          width="500"
+          src="https://picsum.photos/500/280?grayscale"
+          alt="random picture"
+        />
+      </div>
+    </div>
   </ErrorWrapper>
 );
 export const WithErrors = Template.bind({});
@@ -82,19 +98,4 @@ export const WithoutErrors = Template.bind({});
 WithoutErrors.args = {
   errors: [],
   label: "ErrorWrapper",
-};
-
-export const WithLoading = Template.bind({});
-WithLoading.args = {
-  errors: [
-    {
-      type: "INTERNAL",
-      name: "error name",
-      reloadPage: false,
-      message:
-        "This is an error message for test, don't take it seriously sir.. please.",
-    },
-  ],
-  label: "ErrorWrapper",
-  loading: true,
 };
