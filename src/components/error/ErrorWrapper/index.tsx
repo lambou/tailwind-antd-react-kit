@@ -12,24 +12,152 @@ import { ButtonProps } from "antd/lib/button";
 import { IError } from "../../interfaces";
 
 export type ErrorWrapperProps = React.HTMLAttributes<HTMLDivElement> & {
+  /**
+   * Errors list
+   */
   errors: IError[];
+
+  /**
+   * Toggle loading
+   */
   loading?: boolean;
+
+  /**
+   * Loading spin props
+   */
   spinProps?: Omit<SpinProps, "spinning">;
+
+  /**
+   * Wrapping mode
+   */
   mode?: "replace" | "overlay";
-  overlayClassName?: string;
-  refreshButtonText?: React.ReactNode;
-  goToHomePageButtonText?: React.ReactNode;
+
+  /**
+   * Custom errors rendering
+   */
   renderError?: (errors: IError[]) => React.ReactNode;
+
+  /**
+   * Customize error
+   */
   customize?: ErrorWrapperCustom;
+
+  /**
+   * Action options
+   */
+  actionOptions?: ErrorWrapperActionOptions;
+
+  /**
+   * Overlay (when mode = overlay) className
+   *
+   * use `actionOptions.overlayClass` instead
+   *
+   * @deprecated
+   */
+  overlayClassName?: string;
+
+  /**
+   * Reload the page action button text
+   *
+   * use `actionOptions.defaultTexts.refreshButton` instead
+   *
+   * @deprecated
+   */
+  refreshButtonText?: React.ReactNode;
+
+  /**
+   * Goto home page action button text
+   *
+   * use `actionOptions.defaultTexts.gotToHomeButton` instead
+   *
+   * @deprecated
+   */
+  goToHomePageButtonText?: React.ReactNode;
 };
 
-export type ErrorWrapperCustom = Partial<{
-  warningIcon: React.ReactNode;
-  warningIconClass: string;
-  warningIconStype: React.CSSProperties;
-  titleClass: string;
-  buttonProps: Partial<Omit<ButtonProps, "onClick">>;
-}>;
+export type ErrorWrapperActionOptions = {
+  buttonProps?: Partial<Omit<ButtonProps, "onClick">>;
+  actionType?: "goto_home_page" | "page_reload";
+  homePageRoutePath?: string;
+  defaultIcons?: {
+    gotToHomeButton?: React.ReactNode;
+    reloadPageButton?: React.ReactNode;
+    refreshButton?: React.ReactNode;
+  };
+  defaultTexts?: {
+    gotToHomeButton?: React.ReactNode;
+    reloadPageButton?: React.ReactNode;
+    refreshButton?: React.ReactNode;
+  };
+};
+
+export type ErrorWrapperCustom = {
+  /**
+   * Icon on top of the error title
+   */
+  errorIcon?: (
+    className: string,
+    style: React.CSSProperties
+  ) => React.ReactNode;
+
+  /**
+   * Applied only when `errorIcon` is not defined
+   */
+  errorIconClass?: string;
+
+  /**
+   * Applied only when `errorIcon` is not defined
+   */
+  errorIconStype?: React.CSSProperties;
+
+  /**
+   * Overlay class
+   *
+   * Applied only when `mode=overlay`
+   */
+  overlayClass?: string;
+
+  /**
+   * Error title class
+   */
+  titleClass?: string;
+
+  /**
+   * Warning icon
+   *
+   * use `errorIcon` instead
+   *
+   * @deprecated
+   */
+  warningIcon?: React.ReactNode;
+
+  /**
+   * Warning icon class
+   *
+   * use `errorIconClass` instead
+   *
+   * @deprecated
+   */
+  warningIconClass?: string;
+
+  /**
+   * Warning icon style
+   *
+   * use `errorIconStype` instead
+   *
+   * @deprecated
+   */
+  warningIconStype?: React.CSSProperties;
+
+  /**
+   * Action button options
+   *
+   * Use actionOptions.buttonProps instead
+   *
+   * @deprecated
+   */
+  buttonProps?: Partial<Omit<ButtonProps, "onClick">>;
+};
 
 const ErrorWrapper = React.forwardRef<HTMLDivElement, ErrorWrapperProps>(
   (props, ref) => {
@@ -46,6 +174,7 @@ const ErrorWrapper = React.forwardRef<HTMLDivElement, ErrorWrapperProps>(
       goToHomePageButtonText,
       style,
       customize,
+      actionOptions,
       ...propsRest
     } = props;
 
@@ -55,13 +184,13 @@ const ErrorWrapper = React.forwardRef<HTMLDivElement, ErrorWrapperProps>(
       setErrorContainerDiv,
     ] = useState<HTMLDivElement | null>(null);
 
-    // button props
+    // action button props
     const {
-      icon: buttonIcon,
-      className: buttonClassName,
-      type: buttonType,
-      ...restButtonProps
-    } = customize?.buttonProps ?? {};
+      icon: actionButtonIcon,
+      className: actionButtonClassName,
+      type: actionButtonType,
+      ...restActionButtonProps
+    } = actionOptions?.buttonProps ?? {};
 
     // explode style
     const { backdropFilter, ...styleRest } = style ?? {};
@@ -116,9 +245,10 @@ const ErrorWrapper = React.forwardRef<HTMLDivElement, ErrorWrapperProps>(
             className={clsx([
               "flex items-center justify-center flex-col w-full h-full",
               mode === "overlay"
-                ? ["absolute bg-white bg-opacity-75", overlayClassName].join(
-                    " "
-                  )
+                ? [
+                    "absolute bg-white bg-opacity-75",
+                    customize?.overlayClass,
+                  ].join(" ")
                 : "",
             ])}
             style={{
@@ -143,13 +273,11 @@ const ErrorWrapper = React.forwardRef<HTMLDivElement, ErrorWrapperProps>(
                 renderError(internalErrors)
               ) : (
                 <div className="flex flex-col items-center justify-center relative">
-                  {customize?.warningIcon ?? (
-                    <WarningOutlined
-                      className={customize?.warningIconClass ?? "text-red-500"}
-                      style={
-                        customize?.warningIconStype ?? { fontSize: "4rem" }
-                      }
-                    />
+                  {customize?.errorIcon?.(
+                    customize?.errorIconClass ?? "text-red-500",
+                    customize?.errorIconStype ?? {
+                      fontSize: "4rem",
+                    }
                   )}
                   <div className="text-2xl font-bold text-red-500">
                     {isInternetAccessProblem(errors)
@@ -162,12 +290,15 @@ const ErrorWrapper = React.forwardRef<HTMLDivElement, ErrorWrapperProps>(
                       <div
                         key={index}
                         id={index.toString()}
-                        className="flex items-center flex-col"
+                        className="flex items-center flex-col gap-3"
                       >
-                        <div className="text-lg py-3">{getMessage(error)}</div>
+                        <div className="text-lg">{getMessage(error)}</div>
                         {error.refreshCallback ? (
                           <Button
-                            icon={buttonIcon ?? <ReloadOutlined />}
+                            icon={
+                              actionButtonIcon ??
+                              actionOptions?.defaultIcons?.refreshButton
+                            }
                             onClick={() => {
                               // call refresh callback
                               if (error.reloadPage === true) {
@@ -178,44 +309,52 @@ const ErrorWrapper = React.forwardRef<HTMLDivElement, ErrorWrapperProps>(
                               }
                             }}
                             className={
-                              buttonClassName ??
+                              actionButtonClassName ??
                               "inline-flex items-center justify-center"
                             }
-                            type={buttonType}
-                            {...restButtonProps}
+                            type={actionButtonType}
+                            {...restActionButtonProps}
                           >
-                            {refreshButtonText ?? "Refresh"}
+                            {actionOptions?.defaultTexts?.refreshButton}
                           </Button>
-                        ) : error.type === "INTERNAL" ? (
-                          <Link to="/">
+                        ) : actionOptions?.actionType === "goto_home_page" ? (
+                          <Link to={actionOptions?.homePageRoutePath ?? "/"}>
                             <Button
-                              icon={buttonIcon ?? <LeftOutlined />}
+                              icon={
+                                actionButtonIcon ??
+                                actionOptions?.defaultIcons?.gotToHomeButton
+                              }
                               onClick={() => {}}
                               className={
-                                buttonClassName ??
+                                actionButtonClassName ??
                                 "inline-flex items-center justify-center"
                               }
-                              type={buttonType}
-                              {...restButtonProps}
+                              type={actionButtonType}
+                              {...restActionButtonProps}
                             >
-                              {goToHomePageButtonText ?? "Back to home page"}
+                              {actionOptions?.defaultTexts?.gotToHomeButton}
                             </Button>
                           </Link>
-                        ) : (
+                        ) : actionOptions?.actionType === "page_reload" ? (
                           <Button
-                            icon={buttonIcon ?? <ReloadOutlined />}
+                            icon={
+                              actionButtonIcon ??
+                              actionOptions?.defaultIcons?.reloadPageButton
+                            }
                             onClick={() => {
                               window.location.reload();
                             }}
                             className={
-                              buttonClassName ??
+                              actionButtonClassName ??
                               "inline-flex items-center justify-center"
                             }
-                            type={buttonType}
-                            {...restButtonProps}
+                            type={actionButtonType}
+                            {...restActionButtonProps}
                           >
-                            {refreshButtonText ?? "Refresh"}
+                            {actionOptions?.defaultTexts?.reloadPageButton}
                           </Button>
+                        ) : (
+                          <></>
                         )}
                       </div>
                     );
@@ -246,6 +385,25 @@ const ErrorWrapper = React.forwardRef<HTMLDivElement, ErrorWrapperProps>(
 ErrorWrapper.defaultProps = {
   mode: "replace",
   loading: false,
+  customize: {
+    errorIcon: (className, style) => {
+      return <WarningOutlined className={className} style={style} />;
+    },
+  },
+  actionOptions: {
+    actionType: "goto_home_page",
+    homePageRoutePath: "/",
+    defaultIcons: {
+      gotToHomeButton: <LeftOutlined />,
+      refreshButton: <ReloadOutlined />,
+      reloadPageButton: <ReloadOutlined />,
+    },
+    defaultTexts: {
+      gotToHomeButton: "Goto home page",
+      refreshButton: "Refresh",
+      reloadPageButton: "Reload the page",
+    },
+  },
 };
 
 export default ErrorWrapper;

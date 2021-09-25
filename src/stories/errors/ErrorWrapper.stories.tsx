@@ -1,3 +1,8 @@
+import {
+  WarningOutlined,
+  LeftOutlined,
+  ReloadOutlined,
+} from "@ant-design/icons";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import React from "react";
 import { BrowserRouter } from "react-router-dom";
@@ -6,46 +11,46 @@ import ErrorWrapper from "../../components/error/ErrorWrapper";
 export default {
   title: "Errors/ErrorWrapper",
   component: ErrorWrapper,
-  decorators: [
-    (Story) => (
-      <BrowserRouter>
-        {Story()}
-      </BrowserRouter>
-    ),
-  ],
+  decorators: [(Story) => <BrowserRouter>{Story()}</BrowserRouter>],
   argTypes: {
-    errors: {},
-    loading: {},
+    errors: {
+      defaultValue: [],
+    },
+    loading: {
+      defaultValue: false,
+    },
     spinProps: {},
-    mode: {},
+    mode: {
+      defaultValue: "replace",
+    },
+    renderError: {},
+    customize: {
+      defaultValue: {
+        errorIcon: (className, style) => {
+          return <WarningOutlined className={className} style={style} />;
+        },
+      },
+    },
+    actionOptions: {
+      defaultValue: {
+        actionType: "page_reload",
+        defaultIcons: {
+          gotToHomeButton: <LeftOutlined />,
+          refreshButton: <ReloadOutlined />,
+          reloadPageButton: <ReloadOutlined />,
+        },
+        defaultTexts: {
+          gotToHomeButton: "Goto home page",
+          refreshButton: "Refresh",
+          reloadPageButton: "Reload the page",
+        },
+      },
+    },
+
     overlayClassName: {},
     refreshButtonText: {},
     goToHomePageButtonText: {},
-    renderError: {},
-    customize: {
-      titleClass: {
-        defaultValue: undefined,
-        name: "titleClass",
-        description: "class of the title",
-      },
-      warningIcon: {
-        name: "warningIcon",
-        description: "Warning Icon",
-      },
-      warningIconClass: {
-        name: "warningIconClass",
-        description: "class of the warning icon",
-      },
-      warningIconStype: {
-        name: "warningIconStype",
-        description: "Warning icon style",
-      },
-      buttonProps: {
-        name: "buttonProps",
-        description: "button properties",
-      },
-    },
-  }
+  },
 } as ComponentMeta<typeof ErrorWrapper>;
 
 const Template: ComponentStory<typeof ErrorWrapper> = (args) => (
