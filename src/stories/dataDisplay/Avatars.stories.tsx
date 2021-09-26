@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import { Avatar } from "antd";
-import { UserOutlined } from "@ant-design/icons";
+import { Avatar, Button } from "antd";
+import { UserOutlined, PlusOutlined } from "@ant-design/icons";
 import Avatars from "../../components/data-display/Avatars";
 
 export default {
@@ -25,7 +25,7 @@ export default {
     },
     hoveredItemOnTop: {
       defaultValue: false,
-      description: "Item stack direction",
+      description: "Show entire item when hovered",
       control: { type: "boolean" },
     },
     right: {
@@ -77,9 +77,30 @@ const Template: ComponentStory<typeof Avatars> = (args) => (
   </div>
 );
 
-export const UsersList = Template.bind({});
-UsersList.args = {
+export const UsersListCircle = Template.bind({});
+UsersListCircle.args = {
   right: "-15px",
   avatarClass: "bg-white rounded-full",
-  label: "Users list",
+  label: "Users list circle",
+};
+
+export const UsersListSquare = Template.bind({});
+UsersListSquare.args = {
+  right: "-15px",
+  avatarClass: "bg-white rounded-md",
+  label: "Users list square",
+};
+
+export const UsersListWithSuffix = Template.bind({});
+UsersListWithSuffix.args = {
+  right: "-15px",
+  avatarClass: "bg-white rounded-md",
+  label: "Users list with suffix",
+  suffix: (
+    <Button
+      type="primary"
+      className="inline-flex items-center justify-center rounded-full"
+      icon={<PlusOutlined />}
+    ></Button>
+  ),
 };
