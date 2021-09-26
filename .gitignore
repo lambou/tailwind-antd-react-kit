@@ -4,6 +4,7 @@
 /node_modules
 /dist
 /trash
+/storybook-static
 /.pnp
 .pnp.js
 
