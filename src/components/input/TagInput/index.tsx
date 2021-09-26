@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from "react";
-import clsx from "clsx";
-import { Tag, Input, Tooltip } from "antd";
-import { TagProps } from "antd/lib/tag";
 import { PlusOutlined } from "@ant-design/icons";
-import { InputProps } from "antd/lib/input";
-import { Obj } from "@noreajs/common";
+import { Input, Tag, Tooltip, TooltipProps } from "antd";
 import { RuleObject } from "antd/lib/form";
+import { InputProps } from "antd/lib/input";
+import { TagProps } from "antd/lib/tag";
+import clsx from "clsx";
+import React, { useEffect, useState } from "react";
 
 export const TagInputValidators = {
   /**
@@ -49,20 +48,60 @@ export const TagInputValidators = {
   },
 };
 
+/**
+ * Value tag component
+ * @param props properties
+ */
+const ValueTag: React.FC<TagProps> = (props) => {
+  const { children, className, ...restProps } = props;
+
+  return (
+    <Tag
+      className={clsx([className, "inline-flex items-center cursor-pointer"])}
+      {...restProps}
+    >
+      {children}
+    </Tag>
+  );
+};
+
 export declare type TagInputProps = Omit<
   React.SelectHTMLAttributes<HTMLInputElement>,
   "hidden" | "value" | "multiple" | "onChange" | "max" | "min"
 > & {
-  value?: string[];
+  /**
+   * Initial values
+   */
+  value?: Array<string | number>;
+
+  /**
+   * Minimum items
+   */
   min?: number;
+
+  /**
+   * Maximum item
+   */
   max?: number;
+
+  /**
+   * Maximun length of displayed item text
+   * @default 15
+   */
+  itemMaxLength?: number;
   distinct?: boolean;
-  onChange?: (newValue: string[]) => void;
-  renderItem?: (item: string) => React.ReactNode;
+  onChange?: (newValue: Array<string | number>) => void;
+  renderItem?: (item: string | number, reducedValue: string) => React.ReactNode;
+
+  /**
+   * Render values before the call of the onChange event
+   */
+  renderValues?: (items: Array<string | number>) => Array<string | number>;
   addButtonText?: React.ReactNode;
   addButtonProps?: TagProps;
   valueTagProps?: TagProps;
   inputProps?: InputProps;
+  tooltipProps?: Omit<TooltipProps, "title">;
 };
 
 const TagInput: React.FC<TagInputProps> = React.forwardRef<
@@ -76,12 +115,15 @@ const TagInput: React.FC<TagInputProps> = React.forwardRef<
     value,
     min,
     max,
+    itemMaxLength,
     distinct,
     addButtonProps,
     valueTagProps,
+    tooltipProps,
     addButtonText,
-    onChange,
+    onChange: tagInputOnChange,
     renderItem,
+    renderValues,
     ...propsRest
   } = props;
 
@@ -89,7 +131,7 @@ const TagInput: React.FC<TagInputProps> = React.forwardRef<
   const [editInputIndex, setEditInputIndex] = useState(-1);
   const [inputValue, setInputValue] = useState("");
   const [editInputValue, setEditInputValue] = useState("");
-  const [tags, setTags] = useState<string[]>(value ?? []);
+  const [tags, setTags] = useState<Array<string | number>>(value ?? []);
   const [maxItems, setMaxItems] = useState<number | undefined>(max);
   const [minItems, setMinItems] = useState<number | undefined>(min);
 
@@ -104,7 +146,8 @@ const TagInput: React.FC<TagInputProps> = React.forwardRef<
     setTags(newTags);
 
     // notify parent
-    if (onChange) onChange(newTags);
+    if (tagInputOnChange)
+      tagInputOnChange(renderValues ? renderValues(newTags) : newTags);
   };
 
   /**
@@ -130,7 +173,8 @@ const TagInput: React.FC<TagInputProps> = React.forwardRef<
     setTags(newTags);
 
     // notify parent
-    if (onChange) onChange(newTags);
+    if (tagInputOnChange)
+      tagInputOnChange(renderValues ? renderValues(newTags) : newTags);
   };
 
   /**
@@ -144,7 +188,8 @@ const TagInput: React.FC<TagInputProps> = React.forwardRef<
     setTags(newTags);
 
     // notify parent
-    if (onChange) onChange(newTags);
+    if (tagInputOnChange)
+      tagInputOnChange(renderValues ? renderValues(newTags) : newTags);
   };
 
   /**
@@ -156,59 +201,37 @@ const TagInput: React.FC<TagInputProps> = React.forwardRef<
     // eslint-disable-next-line
   }, [props.min, props.max]);
 
-  /**
-   * Value tag component
-   * @param props properties
-   */
-  const ValueTag: React.FC<TagProps> = (props) => {
-    const { children, className, ...restProps } = Obj.merge(
-      valueTagProps ?? {},
-      props,
-      "right"
-    );
-
-    return (
-      <Tag
-        className={clsx([
-          className,
-          "inline-flex items-center cursor-pointer mr-1 mb-1",
-        ])}
-        {...restProps}
-      >
-        {children}
-      </Tag>
-    );
-  };
-
   return (
-    <div>
+    <div className={clsx([className, "flex flex-row flex-wrap items-center gap-1"])}>
       <input
         multiple={true}
         ref={ref}
         onChange={(e) => {
-          if (onChange) onChange(e.target.value.split(","));
+          const values = e.target.value.split(",");
+          if (tagInputOnChange)
+            tagInputOnChange(renderValues ? renderValues(values) : values);
         }}
         {...propsRest}
-        value={tags}
+        value={tags.map((i) => `${i}`)}
         max={maxItems}
         min={minItems}
         hidden
       />
       {tags.map((tag, index) => {
         if (editInputIndex === index) {
-          return (() => {
+          return (function (inputProps: InputProps) {
             // inputProps explode
             const {
               type,
               size,
-              className,
+              className: inputClassName,
               placeholder,
-              onChange,
+              onChange: inputOnChange,
               onBlur,
               onPressEnter,
               style,
               ...inputPropsRest
-            } = inputProps ?? {};
+            } = inputProps;
 
             // explode style
             const { maxWidth, ...styleRest } = style ?? {};
@@ -221,12 +244,12 @@ const TagInput: React.FC<TagInputProps> = React.forwardRef<
                 }}
                 key={index}
                 size={size ?? "small"}
-                className={clsx([className])}
+                className={clsx([inputClassName])}
                 onChange={(e) => {
                   // internal process
                   setEditInputValue(e.target.value);
                   // external process
-                  if (onChange) onChange(e);
+                  if (inputOnChange) inputOnChange(e);
                 }}
                 onBlur={(e) => {
                   // internal process
@@ -247,31 +270,56 @@ const TagInput: React.FC<TagInputProps> = React.forwardRef<
                 {...inputPropsRest}
               />
             );
-          })();
+          })(inputProps ?? {});
         }
 
-        const isLongTag = tag.length > 20;
+        const isLongTag = `${tag}`.length > (itemMaxLength ?? 15);
+
+        const reducedValue = isLongTag
+          ? `${`${tag}`.slice(0, 20)}...`
+          : `${tag}`;
+
+        // explode value tag props
+        const {
+          closable: valueTagClosable,
+          onClose: valueTagOnClose,
+          style: valueTagStyle,
+          ...valueTagRestProps
+        } = valueTagProps ?? {};
+
+        // explode value tag style
+        const { margin: valueTagStyleMargin, ...valueTagStyleRestProps } =
+          valueTagStyle ?? {};
 
         const tagElem = (
-          <ValueTag key={index} closable onClose={() => handleClose(tag)}>
+          <ValueTag
+            key={index}
+            closable={valueTagClosable ?? true}
+            style={{
+              margin: "0px",
+              ...valueTagStyleRestProps,
+            }}
+            onClose={(ev) => {
+              valueTagOnClose?.(ev);
+              handleClose(tag);
+            }}
+            {...valueTagRestProps}
+          >
             <span
               onDoubleClick={(e) => {
                 setEditInputIndex(index);
-                setEditInputValue(tag);
+                setEditInputValue(`${tag}`);
 
                 e.preventDefault();
               }}
             >
-              {renderItem
-                ? renderItem(tag)
-                : isLongTag
-                ? `${tag.slice(0, 20)}...`
-                : tag}
+              {renderItem ? renderItem(tag, reducedValue) : reducedValue}
             </span>
           </ValueTag>
         );
-        return !renderItem && isLongTag ? (
-          <Tooltip title={tag} key={index}>
+
+        return isLongTag ? (
+          <Tooltip title={tag} key={index} {...(tooltipProps ?? {})}>
             {tagElem}
           </Tooltip>
         ) : (
@@ -280,22 +328,22 @@ const TagInput: React.FC<TagInputProps> = React.forwardRef<
       })}
 
       {inputVisible &&
-        (() => {
+        (function (inputProps: InputProps) {
           // inputProps explode
           const {
             type,
             size,
-            className,
-            placeholder,
-            onChange,
-            onBlur,
-            onPressEnter,
+            className: inputClassName,
+            placeholder: inputPlaceholder,
+            onChange: inputOnchange,
+            onBlur: inputOnBlur,
+            onPressEnter: inputOnPressEnter,
             style,
             ...inputPropsRest
-          } = inputProps ?? {};
+          } = inputProps;
 
           // explode style
-          const { maxWidth, ...styleRest } = style ?? {};
+          const { maxWidth, ...inputStyleRest } = style ?? {};
 
           return (
             <Input
@@ -305,45 +353,54 @@ const TagInput: React.FC<TagInputProps> = React.forwardRef<
               }}
               type={type ?? "text"}
               size={size ?? "small"}
-              className={clsx([className])}
-              placeholder={placeholder ?? "Enter a value"}
+              className={clsx([inputClassName])}
+              placeholder={inputPlaceholder ?? "Enter a value"}
               onChange={(e) => {
                 //internal process
                 setInputValue(e.target.value);
                 // external process
-                if (onChange) onChange(e);
+                if (inputOnchange) inputOnchange(e);
               }}
               onBlur={(e) => {
                 // internal process
                 handleInputConfirm();
                 // external process
-                if (onBlur) onBlur(e);
+                if (inputOnBlur) inputOnBlur(e);
               }}
               onPressEnter={(e) => {
                 // internal process
                 handleInputConfirm();
                 // external process
-                if (onPressEnter) onPressEnter(e);
+                if (inputOnPressEnter) inputOnPressEnter(e);
               }}
               style={{
                 maxWidth: maxWidth ?? "220px",
-                ...styleRest,
+                ...inputStyleRest,
               }}
               {...inputPropsRest}
             />
           );
-        })()}
+        })(inputProps ?? {})}
       {!inputVisible &&
         editInputIndex === -1 &&
         (!maxItems || maxItems > tags.length) &&
-        (() => {
+        (function (buttonProps: TagProps, buttonText: React.ReactNode) {
           // explode addButtonProps
-          const { icon, onClick, ...addButtonPropsRest } = addButtonProps ?? {};
+          const {
+            className: addTagButtonClassName,
+            icon,
+            onClick,
+            ...addButtonPropsRest
+          } = buttonProps;
 
           // render the component
           return (
             <ValueTag
               icon={icon ?? <PlusOutlined />}
+              className={clsx([
+                addTagButtonClassName,
+                "inline-flex flex-row flex-nowrap items-center",
+              ])}
               onClick={(e) => {
                 // internal process
                 showInput();
@@ -352,16 +409,17 @@ const TagInput: React.FC<TagInputProps> = React.forwardRef<
               }}
               {...addButtonPropsRest}
             >
-              {addButtonText ?? "Add"}
+              {buttonText}
             </ValueTag>
           );
-        })()}
+        })(addButtonProps ?? {}, addButtonText ?? "Add")}
     </div>
   );
 });
 
 TagInput.defaultProps = {
   distinct: false,
+  itemMaxLength: 15,
 };
 
 export default TagInput;
