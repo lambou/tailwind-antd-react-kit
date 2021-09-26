@@ -15,12 +15,20 @@ export const TagInputValidators = {
   maxValidator: (maxItems: number) => {
     return (_rule: RuleObject, value: string[]) => {
       return new Promise((resolve, reject) => {
-        if (!maxItems || value.length <= maxItems) {
-          return resolve(true);
+        if (Array.isArray(value)) {
+          if (
+            maxItems === null ||
+            maxItems === undefined ||
+            value.length <= maxItems
+          ) {
+            resolve(true);
+          } else {
+            reject(
+              `Only ${maxItems} ${maxItems > 1 ? "items" : "item"} can be added`
+            );
+          }
         } else {
-          return reject(
-            `Only ${maxItems} ${maxItems > 1 ? "items" : "item"} can be added`
-          );
+          resolve(true);
         }
       });
     };
@@ -34,14 +42,22 @@ export const TagInputValidators = {
   minValidator: (minItems: number) => {
     return (_rule: RuleObject, value: string[]) => {
       return new Promise((resolve, reject) => {
-        if (!minItems || value.length >= minItems) {
-          resolve(true);
+        if (Array.isArray(value)) {
+          if (
+            minItems === null ||
+            minItems === undefined ||
+            value.length >= minItems
+          ) {
+            resolve(true);
+          } else {
+            reject(
+              `At least ${minItems} ${
+                minItems > 1 ? "items are" : "item is"
+              } required`
+            );
+          }
         } else {
-          reject(
-            `At least ${minItems} ${
-              minItems > 1 ? "items are" : "item is"
-            } required`
-          );
+          resolve(true);
         }
       });
     };
@@ -202,7 +218,12 @@ const TagInput: React.FC<TagInputProps> = React.forwardRef<
   }, [props.min, props.max]);
 
   return (
-    <div className={clsx([className, "flex flex-row flex-wrap items-center gap-1"])}>
+    <div
+      className={clsx([
+        className,
+        "flex flex-row flex-wrap items-center gap-1",
+      ])}
+    >
       <input
         multiple={true}
         ref={ref}
