@@ -1,9 +1,9 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import Flex from "../../components/disposition/Flex";
+import Space from "../../components/disposition/Space";
 
 export default {
-  title: "Disposition/Flex",
-  component: Flex,
+  title: "Disposition/Space",
+  component: Space,
   argTypes: {
     inline: {
       defaultValue: false,
@@ -59,14 +59,17 @@ export default {
       ],
     },
     gap: {
-      defaultValue: undefined,
+      defaultValue: "0.5rem",
     },
+    split: {
+        defaultValue: ""
+    }
   },
-} as ComponentMeta<typeof Flex>;
+} as ComponentMeta<typeof Space>;
 
-const Template: ComponentStory<typeof Flex> = (args) => (
+const Template: ComponentStory<typeof Space> = (args) => (
   <div>
-    <Flex
+    <Space
       className="w-full p-4 bg-gray-100 rounded-md"
       style={{ minHeight: "280px" }}
       {...args}
@@ -101,7 +104,7 @@ const Template: ComponentStory<typeof Flex> = (args) => (
       >
         5
       </div>
-    </Flex>
+    </Space>
   </div>
 );
 
@@ -114,4 +117,5 @@ Example.args = {
   items: "stretch",
   content: "normal",
   gap: "0.5rem",
+  split: ""
 };

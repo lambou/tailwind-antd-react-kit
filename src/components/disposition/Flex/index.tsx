@@ -8,7 +8,7 @@ export type FlexGapOptions = {
 
 export type FlexProps = Omit<React.HTMLAttributes<HTMLElement>, "style"> & {
   /**
-   * Use inline-flex instead of flex.
+   * Use `inline-flex` instead of flex.
    *
    * @default false
    */
