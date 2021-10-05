@@ -1,6 +1,6 @@
 # tailwind-antd-react-kit
 
-> UI Components and helpers for frontend developement using Tailwind + Ant Design and React.js
+> UI Components and helpers for frontend development using Tailwind + Ant Design and React.js
 
 [![NPM](https://img.shields.io/npm/v/tailwind-antd-react-kit.svg)](https://www.npmjs.com/package/tailwind-antd-react-kit) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
