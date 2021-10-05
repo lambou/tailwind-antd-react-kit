@@ -1,6 +1,10 @@
-export { default as FlexSpace } from './FlexSpace'
-export type { FlexSpaceProps } from './FlexSpace'
-export { default as ResponsiveSpace } from './ResponsiveSpace'
-export type { ResponsiveSpaceProps } from './ResponsiveSpace'
-export { default as Container } from './Container'
-export type { ContainerProps } from './Container'
+export { default as FlexSpace } from "./FlexSpace";
+export type { FlexSpaceProps } from "./FlexSpace";
+export { default as ResponsiveSpace } from "./ResponsiveSpace";
+export type { ResponsiveSpaceProps } from "./ResponsiveSpace";
+export { default as Container } from "./Container";
+export type { ContainerProps } from "./Container";
+export type { FlexProps, FlexGapOptions } from "./Flex";
+export { default as Flex } from "./Flex";
+export type { FlexItemProps } from "./FlexItem";
+export { default as FlexItem } from "./FlexItem";
