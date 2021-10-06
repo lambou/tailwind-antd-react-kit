@@ -8,3 +8,5 @@ export type { FlexProps, FlexGapOptions } from "./Flex";
 export { default as Flex } from "./Flex";
 export type { FlexItemProps } from "./FlexItem";
 export { default as FlexItem } from "./FlexItem";
+export type {SpaceProps } from "./Space";
+export {default as Space} from "./Space";
