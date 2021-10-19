@@ -1,11 +1,13 @@
-import React, { ReactNode, Fragment } from "react";
+import { Obj } from "@noreajs/common";
+import React, { ReactNode, Fragment, useContext } from "react";
+import { designContext } from "../../providers/DesignProvider";
 import Flex from "../Flex/index";
 import { FlexProps } from "../Flex/index";
 
 export type SpaceProps = FlexProps & {
   /**
    * Split items with a divider
-   * 
+   *
    * @default undefined
    */
   split?: ReactNode;
@@ -15,8 +17,14 @@ export type SpaceProps = FlexProps & {
  * Flex component with default `gap` and additional properties (`split`)
  */
 const Space = React.forwardRef<HTMLDivElement, SpaceProps>((props, ref) => {
+  // load global props
+  const { spaceProps } = useContext(designContext);
   // explode props
-  const { split, children, ...restProps } = props;
+  const { split, children, ...restProps } = Obj.mergeStrict(
+    props,
+    spaceProps ?? {},
+    "left"
+  );
 
   /**
    * Clear the children list from empty elements
@@ -63,8 +71,6 @@ const Space = React.forwardRef<HTMLDivElement, SpaceProps>((props, ref) => {
   );
 });
 
-Space.defaultProps = {
-  gap: "0.5rem",
-};
+Space.defaultProps = {};
 
 export default Space;

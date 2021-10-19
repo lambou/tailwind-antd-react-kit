@@ -1,5 +1,7 @@
-import React from "react";
+import React, { ReactHTML, useContext } from "react";
 import { Property } from "csstype";
+import { designContext } from "../../providers/DesignProvider";
+import { Obj } from "@noreajs/common";
 
 export type FlexGapOptions = {
   row?: Property.RowGap;
@@ -7,6 +9,13 @@ export type FlexGapOptions = {
 };
 
 export type FlexProps = Omit<React.HTMLAttributes<HTMLElement>, "style"> & {
+  /**
+   * HTML element to render
+   *
+   * @default div
+   */
+  as?: keyof ReactHTML;
+
   /**
    * Use `inline-flex` instead of flex.
    *
@@ -91,8 +100,11 @@ export type FlexProps = Omit<React.HTMLAttributes<HTMLElement>, "style"> & {
  * **mozilla doc**: https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Flexbox
  */
 const Flex = React.forwardRef<HTMLDivElement, FlexProps>((props, ref) => {
+  // load global props
+  const { flexProps } = useContext(designContext);
   // explode props
   const {
+    as,
     className,
     inline,
     direction,
@@ -104,51 +116,41 @@ const Flex = React.forwardRef<HTMLDivElement, FlexProps>((props, ref) => {
     style,
     children,
     ...restProps
-  } = props;
-  
-  return (
-    <div
-      ref={ref}
-      className={className}
-      style={{
-        display: inline ? "inline-flex" : "flex",
-        alignItems: items,
-        flexDirection: direction,
-        flexWrap: wrap,
-        justifyContent: justify,
-        alignContent: content,
-        ...(function () {
-          if (typeof gap !== "object") {
-            return { gap: gap };
-          } else {
-            const r: FlexGapOptions = {};
-            // row defined
-            if (!!gap.row) {
-              r.row = gap.row;
-            }
-            // column gap defined
-            if (!!gap.column) {
-              r.column = gap.column;
-            }
-            return r;
+  } = Obj.mergeStrict(props, flexProps ?? {}, "left");
+
+  return React.createElement(as ?? "div", {
+    ref: ref,
+    className: className,
+    style: {
+      display: inline ? "inline-flex" : "flex",
+      alignItems: items,
+      flexDirection: direction,
+      flexWrap: wrap,
+      justifyContent: justify,
+      alignContent: content,
+      ...(function () {
+        if (typeof gap !== "object") {
+          return { gap: gap };
+        } else {
+          const r: FlexGapOptions = {};
+          // row defined
+          if (!!gap.row) {
+            r.row = gap.row;
           }
-        })(),
-        ...(style ?? {}),
-      }}
-      {...restProps}
-    >
-      {children}
-    </div>
-  );
+          // column gap defined
+          if (!!gap.column) {
+            r.column = gap.column;
+          }
+          return r;
+        }
+      })(),
+      ...(style ?? {}),
+    },
+    children: children,
+    ...restProps,
+  });
 });
 
-Flex.defaultProps = {
-  inline: false,
-  direction: "row",
-  wrap: "wrap",
-  justify: "flex-start",
-  items: "stretch",
-  content: "normal",
-};
+Flex.defaultProps = {};
 
 export default Flex;

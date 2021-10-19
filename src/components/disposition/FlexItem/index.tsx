@@ -1,7 +1,16 @@
-import React from "react";
+import React, { ReactHTML, useContext } from "react";
 import { Property } from "csstype";
+import { designContext } from "../../providers/DesignProvider";
+import { Obj } from "@noreajs/common";
 
 export type FlexItemProps = Omit<React.HTMLAttributes<HTMLElement>, "style"> & {
+  /**
+   * HTML element to render
+   *
+   * @default div
+   */
+  as?: keyof ReactHTML;
+
   /**
    * By default, flex items are laid out in the source order. However, the order property controls the order in which they appear in the flex container.
    *
@@ -64,45 +73,41 @@ export type FlexItemProps = Omit<React.HTMLAttributes<HTMLElement>, "style"> & {
  *
  * **mozilla doc**: https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Flexbox
  */
-const FlexItem = React.forwardRef<HTMLDivElement, FlexItemProps>((props, ref) => {
-  // explode props
-  const {
-    className,
-    order,
-    grow,
-    shrink,
-    self,
-    basis,
-    style,
-    children,
-    ...restProps
-  } = props;
+const FlexItem = React.forwardRef<HTMLDivElement, FlexItemProps>(
+  (props, ref) => {
+    // load global props
+    const { flexItemProps } = useContext(designContext);
+    // explode props
+    const {
+      as,
+      className,
+      order,
+      grow,
+      shrink,
+      self,
+      basis,
+      style,
+      children,
+      ...restProps
+    } = Obj.mergeStrict(props, flexItemProps ?? {}, "left");
 
-  return (
-    <div
-      ref={ref}
-      className={className}
-      style={{
+    return React.createElement(as ?? "div", {
+      ref: ref,
+      className: className,
+      style: {
         order: order,
         flexGrow: grow,
         flexShrink: shrink,
         alignSelf: self,
         flexBasis: basis,
         ...(style ?? {}),
-      }}
-      {...restProps}
-    >
-      {children}
-    </div>
-  );
-});
+      },
+      ...restProps,
+      children: children,
+    });
+  }
+);
 
-FlexItem.defaultProps = {
-  order: 0,
-  grow: 0,
-  shrink: 1,
-  self: "auto",
-  basis: "auto",
-};
+FlexItem.defaultProps = {};
 
 export default FlexItem;

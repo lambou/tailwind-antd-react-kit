@@ -1,9 +1,17 @@
 import { Obj } from "@noreajs/common";
 import clsx from "clsx";
 import PropTypes from "prop-types";
-import React from "react";
+import React, { ReactHTML, useContext } from "react";
+import { designContext } from "../../providers/DesignProvider";
 
 export type AvatarsProps = React.HTMLAttributes<HTMLDivElement> & {
+  /**
+   * HTML element to render
+   *
+   * @default div
+   */
+  as?: keyof ReactHTML;
+
   /**
    * Avatars's container class
    */
@@ -59,7 +67,11 @@ const Avatars: React.FC<AvatarsProps> = React.forwardRef<
   HTMLDivElement,
   AvatarsProps
 >((props, ref) => {
+  // load global props
+  const { avatarsProps } = useContext(designContext);
+  // explode props
   const {
+    as,
     containerClass,
     className,
     avatarClass,
@@ -71,7 +83,7 @@ const Avatars: React.FC<AvatarsProps> = React.forwardRef<
     prefix,
     initialZIndex,
     ...propsRest
-  } = props;
+  } = Obj.mergeStrict(props, avatarsProps ?? {}, "left");
 
   // style explode
   const { marginRight, padding, ...itemStyleRest } = itemStyle ?? {};
@@ -145,34 +157,31 @@ const Avatars: React.FC<AvatarsProps> = React.forwardRef<
     return ar.filter((item) => !!item);
   };
 
-  return (
-    <div
-      ref={ref}
-      className={clsx([className, "flex flex-row items-center gap-2"])}
-      {...propsRest}
-    >
-      <React.Fragment>{prefix}</React.Fragment>
-      <span className={clsx([containerClass])}>
-        {React.Children.map(safeList(props.children), (child, index) =>
-          modifyChild(child, index, safeList(props.children).length, {
-            childAfter: safeList(props.children).at(index + 1),
-            childBefore: safeList(props.children).at(index - 1),
-          })
-        )}
-      </span>
-      <React.Fragment>{suffix}</React.Fragment>
-    </div>
-  );
+  return React.createElement(as ?? "div", {
+    ref: ref,
+    className: clsx([className, "flex flex-row items-center gap-2"]),
+    ...propsRest,
+    children: (
+      <React.Fragment>
+        {prefix ? prefix : <React.Fragment></React.Fragment>}
+        <span className={clsx([containerClass])}>
+          {React.Children.map(safeList(props.children), (child, index) =>
+            modifyChild(child, index, safeList(props.children).length, {
+              childAfter: safeList(props.children).at(index + 1),
+              childBefore: safeList(props.children).at(index - 1),
+            })
+          )}
+        </span>
+        {suffix ? suffix : <React.Fragment></React.Fragment>}
+      </React.Fragment>
+    ),
+  });
 });
 
 Avatars.propTypes = {
   children: PropTypes.array.isRequired,
 };
 
-Avatars.defaultProps = {
-  stackDirection: "left",
-  hoveredItemOnTop: false,
-  initialZIndex: 0,
-};
+Avatars.defaultProps = {};
 
 export default Avatars;

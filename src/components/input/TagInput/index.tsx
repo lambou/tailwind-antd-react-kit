@@ -1,10 +1,12 @@
 import { PlusOutlined } from "@ant-design/icons";
+import { Obj } from "@noreajs/common";
 import { Input, Tag, Tooltip, TooltipProps } from "antd";
 import { RuleObject } from "antd/lib/form";
 import { InputProps } from "antd/lib/input";
 import { TagProps } from "antd/lib/tag";
 import clsx from "clsx";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { designContext } from "../../providers/DesignProvider";
 
 export const TagInputValidators = {
   /**
@@ -124,6 +126,8 @@ const TagInput: React.FC<TagInputProps> = React.forwardRef<
   HTMLInputElement,
   TagInputProps
 >((props, ref) => {
+  // load global props
+  const { tagInputProps } = useContext(designContext);
   // explode main props
   const {
     className,
@@ -141,7 +145,7 @@ const TagInput: React.FC<TagInputProps> = React.forwardRef<
     renderItem,
     renderValues,
     ...propsRest
-  } = props;
+  } = Obj.mergeStrict(props, tagInputProps ?? {}, "left");
 
   const [inputVisible, setInputVisible] = useState(false);
   const [editInputIndex, setEditInputIndex] = useState(-1);
@@ -438,9 +442,6 @@ const TagInput: React.FC<TagInputProps> = React.forwardRef<
   );
 });
 
-TagInput.defaultProps = {
-  distinct: false,
-  itemMaxLength: 15,
-};
+TagInput.defaultProps = {};
 
 export default TagInput;
