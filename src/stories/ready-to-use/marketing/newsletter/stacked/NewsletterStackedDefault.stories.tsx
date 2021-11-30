@@ -1,4 +1,3 @@
-import { MailOutlined } from "@ant-design/icons";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import NewsletterStacked from "../../../../../components/ready-to-use/marketing/sections/newsletter/Stacked/NewsletterStacked";
 
@@ -8,7 +7,7 @@ export default {
   argTypes: {
     padding: {
       type: "boolean",
-      defaultValue: false,
+      defaultValue: true,
     },
     centered: {
       type: "boolean",
@@ -20,11 +19,11 @@ export default {
     },
     shadow: {
       type: "boolean",
-      defaultValue: false,
+      defaultValue: true,
     },
     bordered: {
       type: "boolean",
-      defaultValue: false,
+      defaultValue: true,
     },
     gapClass: {
       defaultValue: "gap-2",

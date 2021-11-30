@@ -1,5 +1,5 @@
-import { Button, ButtonProps, FormInstance, Input, InputProps } from "antd";
-import Form, { useForm, FormProps } from "antd/lib/form/Form";
+import { Button, ButtonProps, Input, InputProps } from "antd";
+import Form, { FormProps, useForm } from "antd/lib/form/Form";
 import FormItem from "antd/lib/form/FormItem";
 import clsx from "clsx";
 import React from "react";

@@ -1,7 +1,6 @@
 import {
-  WarningOutlined,
   LeftOutlined,
-  ReloadOutlined,
+  ReloadOutlined, WarningOutlined
 } from "@ant-design/icons";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import React from "react";

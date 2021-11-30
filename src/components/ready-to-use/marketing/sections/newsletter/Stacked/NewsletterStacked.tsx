@@ -121,7 +121,7 @@ const NewsletterStacked = React.forwardRef<
     >
       {typeof icon === "boolean" ? (
         icon === true ? (
-          <MailOutlined className="inline-flex justify-start text-4xl text-primary-500" />
+          <MailOutlined className="inline-flex justify-start text-4xl" />
         ) : (
           <></>
         )
@@ -179,7 +179,7 @@ const NewsletterStacked = React.forwardRef<
 });
 
 NewsletterStacked.defaultProps = {
-  gapClass: "gap-2",
+  gapClass: "gap-1.5",
   padding: false,
   centered: false,
   shadow: false,
