@@ -5,7 +5,14 @@ export default {
   title: "Ready-to-use/Marketing/Sections/Newsletter/Stacked/Default",
   component: NewsletterStacked,
   argTypes: {
+    className: {
+      type: "string",
+    },
     padding: {
+      type: "boolean",
+      defaultValue: true,
+    },
+    rounded: {
       type: "boolean",
       defaultValue: true,
     },
@@ -35,9 +42,7 @@ export default {
 const Template: ComponentStory<typeof NewsletterStacked> = (args) => {
   //   const [formInstance] = useForm();
   return (
-    <div
-      className="inline-flex flex-row flex-nowrap"
-    >
+    <div className="inline-flex flex-row flex-nowrap">
       <NewsletterStacked {...args} />
     </div>
   );

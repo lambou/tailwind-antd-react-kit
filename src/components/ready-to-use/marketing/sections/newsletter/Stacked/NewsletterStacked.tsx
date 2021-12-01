@@ -12,9 +12,15 @@ export type NewsletterStackedProps = React.HTMLAttributes<HTMLDivElement> & {
   /**
    * Gap class
    *
-   * @default `gap-2`
+   * @default `gap-1.5`
    */
   gapClass?: string;
+
+  /**
+   * Rounded
+   * when the value is `true`, the tailwind class `rounded-lg` will be applied
+   */
+  rounded?: boolean | string;
 
   /**
    * Padding
@@ -87,6 +93,7 @@ const NewsletterStacked = React.forwardRef<
   const {
     formInputProps,
     gapClass,
+    rounded,
     padding,
     centered,
     bordered,
@@ -105,13 +112,14 @@ const NewsletterStacked = React.forwardRef<
       ref={ref}
       className={clsx([
         className,
-        "flex flex-col",
+        "flex flex-col overflow-hidden",
         gapClass,
         typeof bordered === "string" ? bordered : undefined,
         typeof shadow === "string" ? shadow : undefined,
         typeof padding === "string" ? padding : undefined,
         {
-          "items-center": centered,
+          "items-center": centered === true,
+          "rounded-lg": rounded === true,
           border: bordered === true,
           "shadow-md": shadow === true,
           "p-4": padding === true,
@@ -181,6 +189,7 @@ const NewsletterStacked = React.forwardRef<
 NewsletterStacked.defaultProps = {
   gapClass: "gap-1.5",
   padding: false,
+  rounded: false,
   centered: false,
   shadow: false,
   bordered: false,
