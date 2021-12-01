@@ -55,6 +55,10 @@ export const DefaultNewsletterStackedImageLeft = Template.bind({});
 DefaultNewsletterStackedImageLeft.args = {
   className: "bg-white",
   image: "https://picsum.photos/500/280",
+  imageOverlayStyle: {
+    backgroundColor: "#1890ff",
+    opacity: 0.45
+  },
   formProps: {
     formInputProps: {
       className: "flex-auto",

@@ -154,7 +154,7 @@ const NewsletterStacked = React.forwardRef<
         (function () {
           switch (typeof texts.title) {
             case "string":
-              return <div className="font-bold text-xl">{texts.title}</div>;
+              return <div className="font-bold text-xl text-gray-900">{texts.title}</div>;
 
             default:
               return texts.title;
@@ -164,7 +164,7 @@ const NewsletterStacked = React.forwardRef<
         (function () {
           switch (typeof texts.body) {
             case "string":
-              return <div className="text-base">{texts.body}</div>;
+              return <div className="text-base text-gray-500">{texts.body}</div>;
 
             default:
               return texts.body;

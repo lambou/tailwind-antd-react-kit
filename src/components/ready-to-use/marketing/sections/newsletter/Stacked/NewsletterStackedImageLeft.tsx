@@ -66,7 +66,13 @@ type NewsletterStackedImageLeftProps = React.HTMLAttributes<HTMLDivElement> & {
    * Image overlay
    * @default false
    */
-  imageOverlay?: boolean | React.CSSProperties;
+  imageOverlay?: boolean;
+
+  /**
+   * Image overlay style
+   * @default undefined
+   */
+  imageOverlayStyle?: React.CSSProperties;
 };
 
 const NewsletterStackedImageLeft = React.forwardRef<
@@ -85,6 +91,7 @@ const NewsletterStackedImageLeft = React.forwardRef<
     imageWidth,
     imageContainerStyle,
     imageOverlay,
+    imageOverlayStyle,
 
     /**
      * Native props
@@ -130,17 +137,16 @@ const NewsletterStackedImageLeft = React.forwardRef<
           >
             {typeof image !== "string" && image}
 
-            {imageOverlay !== undefined && (
+            {imageOverlay === true && (
               <div
                 className={clsx([
                   "absolute w-full h-full",
                   {
-                    "bg-primary-500 bg-opacity-25": imageOverlay === true,
+                    "bg-primary-500 bg-opacity-25":
+                    imageOverlayStyle === undefined,
                   },
                 ])}
-                style={
-                  typeof imageOverlay !== "boolean" ? imageOverlay : undefined
-                }
+                style={imageOverlayStyle}
               ></div>
             )}
           </div>
