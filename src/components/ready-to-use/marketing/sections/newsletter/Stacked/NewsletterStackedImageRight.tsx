@@ -1,9 +1,9 @@
 import clsx from "clsx";
 import React from "react";
-import { Flex, FlexProps } from "../../../../..";
+import { Flex } from "../../../../..";
 import NewsletterStacked, { NewsletterStackedProps } from "./NewsletterStacked";
 
-type NewsletterStackedImageRightProps = FlexProps & {
+type NewsletterStackedImageRightProps = React.HTMLAttributes<HTMLDivElement> & {
   /**
    * Newsletter form
    */
@@ -101,13 +101,11 @@ const NewsletterStackedImageRight = React.forwardRef<
     ...restProps
   } = props;
   return (
-    <Flex
+    <div
       ref={ref}
-      direction="row"
-      wrap="nowrap"
       className={clsx([
         className,
-        "overflow-hidden",
+        "flex flex-row flex-nowrap overflow-hidden",
         gapClass,
         typeof bordered === "string" ? bordered : undefined,
         typeof shadow === "string" ? shadow : undefined,
@@ -172,7 +170,7 @@ const NewsletterStackedImageRight = React.forwardRef<
           </Flex>
         );
       })()}
-    </Flex>
+    </div>
   );
 });
 

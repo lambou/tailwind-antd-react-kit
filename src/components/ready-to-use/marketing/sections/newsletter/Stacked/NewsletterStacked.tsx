@@ -1,10 +1,9 @@
 import { MailOutlined } from "@ant-design/icons";
 import clsx from "clsx";
 import React from "react";
-import { Flex, FlexProps } from "../../../../..";
 import FormInput, { FormInputProps } from "../FormInput";
 
-export type NewsletterStackedProps = FlexProps & {
+export type NewsletterStackedProps = React.HTMLAttributes<HTMLDivElement> & {
   /**
    * Newsletter form input
    */
@@ -109,12 +108,11 @@ const NewsletterStacked = React.forwardRef<
     ...restProps
   } = props;
   return (
-    <Flex
+    <div
       ref={ref}
-      direction="column"
       className={clsx([
         className,
-        "overflow-hidden",
+        "flex flex-col overflow-hidden",
         gapClass,
         typeof bordered === "string" ? bordered : undefined,
         typeof shadow === "string" ? shadow : undefined,
@@ -190,7 +188,7 @@ const NewsletterStacked = React.forwardRef<
           />
         );
       })()}
-    </Flex>
+    </div>
   );
 });
 

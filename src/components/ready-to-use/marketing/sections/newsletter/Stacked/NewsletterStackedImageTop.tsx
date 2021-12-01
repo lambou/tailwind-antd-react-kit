@@ -3,7 +3,7 @@ import React from "react";
 import { Flex } from "../../../../..";
 import NewsletterStacked, { NewsletterStackedProps } from "./NewsletterStacked";
 
-type NewsletterStackedImageLeftProps = React.HTMLAttributes<HTMLDivElement> & {
+type NewsletterStackedImageTopProps = React.HTMLAttributes<HTMLDivElement> & {
   /**
    * Newsletter form
    */
@@ -52,10 +52,10 @@ type NewsletterStackedImageLeftProps = React.HTMLAttributes<HTMLDivElement> & {
   image?: string | React.ReactNode;
 
   /**
-   * Image container width. value of `width` css property
-   * @default `150px`
+   * Image container height. value of `height` css property
+   * @default `100px`
    */
-  imageWidth?: string | number;
+  imageHeight?: string | number;
 
   /**
    * Image container style
@@ -76,9 +76,9 @@ type NewsletterStackedImageLeftProps = React.HTMLAttributes<HTMLDivElement> & {
   imageOverlayStyle?: React.CSSProperties;
 };
 
-const NewsletterStackedImageLeft = React.forwardRef<
+const NewsletterStackedImageTop = React.forwardRef<
   HTMLDivElement,
-  NewsletterStackedImageLeftProps
+  NewsletterStackedImageTopProps
 >((props, ref) => {
   // explode props
   const {
@@ -89,7 +89,7 @@ const NewsletterStackedImageLeft = React.forwardRef<
     bordered,
     shadow,
     image,
-    imageWidth,
+    imageHeight,
     imageContainerStyle,
     imageOverlay,
     imageOverlayStyle,
@@ -105,7 +105,7 @@ const NewsletterStackedImageLeft = React.forwardRef<
       ref={ref}
       className={clsx([
         className,
-        "flex flex-row flex-nowrap overflow-hidden",
+        "flex flex-col overflow-hidden",
         gapClass,
         typeof bordered === "string" ? bordered : undefined,
         typeof shadow === "string" ? shadow : undefined,
@@ -121,7 +121,7 @@ const NewsletterStackedImageLeft = React.forwardRef<
     >
       {(() => {
         // explode image container props
-        const { backgroundImage, width, ...restImageContainerStyle } =
+        const { backgroundImage, height, ...restImageContainerStyle } =
           imageContainerStyle ?? {};
         return (
           <Flex
@@ -131,7 +131,7 @@ const NewsletterStackedImageLeft = React.forwardRef<
             justify="center"
             className={clsx(["relative overflow-hidden"])}
             style={{
-              width: width ?? imageWidth,
+              height: height ?? imageHeight,
               backgroundImage:
                 backgroundImage ??
                 (typeof image === "string" ? `url(${image})` : undefined),
@@ -174,9 +174,9 @@ const NewsletterStackedImageLeft = React.forwardRef<
   );
 });
 
-NewsletterStackedImageLeft.defaultProps = {
-  imageWidth: "150px",
+NewsletterStackedImageTop.defaultProps = {
+  imageHeight: "100px",
   rounded: false,
 };
 
-export default NewsletterStackedImageLeft;
+export default NewsletterStackedImageTop;

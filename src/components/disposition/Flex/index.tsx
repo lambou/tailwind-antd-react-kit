@@ -151,6 +151,17 @@ const Flex = React.forwardRef<HTMLDivElement, FlexProps>((props, ref) => {
   });
 });
 
-Flex.defaultProps = {};
+Flex.defaultProps = {
+  as: "div",
+  className: undefined,
+  inline: undefined,
+  direction: undefined,
+  wrap: undefined,
+  justify: undefined,
+  items: undefined,
+  content: undefined,
+  gap: undefined,
+  style: undefined,
+};
 
 export default Flex;
