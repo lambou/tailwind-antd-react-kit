@@ -3,7 +3,7 @@ import React from "react";
 import { Flex, FlexProps } from "../../../../..";
 import NewsletterStacked, { NewsletterStackedProps } from "./NewsletterStacked";
 
-type NewsletterStackedImageLeftProps = FlexProps & {
+type NewsletterStackedImageRightProps = FlexProps & {
   /**
    * Newsletter form
    */
@@ -76,9 +76,9 @@ type NewsletterStackedImageLeftProps = FlexProps & {
   imageOverlayStyle?: React.CSSProperties;
 };
 
-const NewsletterStackedImageLeft = React.forwardRef<
+const NewsletterStackedImageRight = React.forwardRef<
   HTMLDivElement,
-  NewsletterStackedImageLeftProps
+  NewsletterStackedImageRightProps
 >((props, ref) => {
   // explode props
   const {
@@ -122,6 +122,21 @@ const NewsletterStackedImageLeft = React.forwardRef<
       {...restProps}
     >
       {(() => {
+        // form props
+        const {
+          padding: formPadding,
+          className: formClassName,
+          ...restFormProps
+        } = formProps ?? {};
+        return (
+          <NewsletterStacked
+            className={clsx([formClassName, "flex-auto"])}
+            padding={formPadding ?? true}
+            {...restFormProps}
+          />
+        );
+      })()}
+      {(() => {
         // explode image container props
         const { backgroundImage, width, ...restImageContainerStyle } =
           imageContainerStyle ?? {};
@@ -157,28 +172,13 @@ const NewsletterStackedImageLeft = React.forwardRef<
           </Flex>
         );
       })()}
-      {(() => {
-        // form props
-        const {
-          padding: formPadding,
-          className: formClassName,
-          ...restFormProps
-        } = formProps ?? {};
-        return (
-          <NewsletterStacked
-            className={clsx([formClassName, "flex-auto"])}
-            padding={formPadding ?? true}
-            {...restFormProps}
-          />
-        );
-      })()}
     </Flex>
   );
 });
 
-NewsletterStackedImageLeft.defaultProps = {
+NewsletterStackedImageRight.defaultProps = {
   imageWidth: "150px",
   rounded: false,
 };
 
-export default NewsletterStackedImageLeft;
+export default NewsletterStackedImageRight;
