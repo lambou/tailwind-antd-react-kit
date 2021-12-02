@@ -12,7 +12,7 @@ type NewsletterStackedImageTopProps = React.HTMLAttributes<HTMLDivElement> & {
   /**
    * Gap class
    *
-   * @default `gap-2`
+   * @default undefined
    */
   gapClass?: string;
 
@@ -47,7 +47,7 @@ type NewsletterStackedImageTopProps = React.HTMLAttributes<HTMLDivElement> & {
   /**
    * Image
    *
-   * @default null
+   * @default undefined
    */
   image?: string | React.ReactNode;
 
@@ -175,8 +175,17 @@ const NewsletterStackedImageTop = React.forwardRef<
 });
 
 NewsletterStackedImageTop.defaultProps = {
-  imageHeight: "100px",
   rounded: false,
+  formProps: undefined,
+  gapClass: undefined,
+  padding: false,
+  bordered: false,
+  shadow: false,
+  image: undefined,
+  imageContainerStyle: undefined,
+  imageOverlay: false,
+  imageOverlayStyle: undefined,
+  imageHeight: "100px",
 };
 
 export default NewsletterStackedImageTop;

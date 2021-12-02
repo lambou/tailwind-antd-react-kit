@@ -48,8 +48,8 @@ const Template: ComponentStory<typeof NewsletterStacked> = (args) => {
   );
 };
 
-export const DefaultNewsletterStacked = Template.bind({});
-DefaultNewsletterStacked.args = {
+export const Default = Template.bind({});
+Default.args = {
   className: "bg-white",
   formInputProps: {
     className: "flex-auto",

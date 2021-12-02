@@ -24,7 +24,16 @@ export default {
       defaultValue: "Subscribe",
     },
     errorMessageText: {
-      defaultValue: "",
+      type: "string",
+      defaultValue: undefined,
+    },
+    invalidEmailMessageText: {
+      type: "string",
+      defaultValue: undefined,
+    },
+    errorSurrounded: {
+      type: "boolean",
+      defaultValue: false,
     },
   },
 } as ComponentMeta<typeof FormInput>;

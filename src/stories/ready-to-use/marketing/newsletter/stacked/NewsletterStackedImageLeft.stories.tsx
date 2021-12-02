@@ -51,8 +51,8 @@ const Template: ComponentStory<typeof NewsletterStackedImageLeft> = (args) => {
   );
 };
 
-export const DefaultNewsletterStackedImageLeft = Template.bind({});
-DefaultNewsletterStackedImageLeft.args = {
+export const Default = Template.bind({});
+Default.args = {
   className: "bg-white",
   image: "https://picsum.photos/500/280",
   imageOverlayStyle: {

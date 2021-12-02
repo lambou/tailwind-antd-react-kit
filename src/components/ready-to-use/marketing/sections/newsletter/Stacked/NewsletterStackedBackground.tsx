@@ -1,9 +1,8 @@
 import clsx from "clsx";
 import React from "react";
-import { Flex } from "../../../../..";
 import NewsletterStacked, { NewsletterStackedProps } from "./NewsletterStacked";
 
-type NewsletterStackedImageRightProps = React.HTMLAttributes<HTMLDivElement> & {
+type NewsletterStackedBackgroundProps = React.HTMLAttributes<HTMLDivElement> & {
   /**
    * Newsletter form
    */
@@ -12,19 +11,23 @@ type NewsletterStackedImageRightProps = React.HTMLAttributes<HTMLDivElement> & {
   /**
    * Gap class
    *
-   * @default undefined
+   * @default `gap-2`
    */
   gapClass?: string;
 
   /**
    * Padding
    * when the value is `true`, the tailwind class `p-4` will be applied
+   *
+   * @default true
    */
   padding?: boolean | string;
 
   /**
    * Rounded
    * when the value is `true`, the tailwind class `rounded-lg` will be applied
+   *
+   * @default false
    */
   rounded?: boolean | string;
 
@@ -49,36 +52,30 @@ type NewsletterStackedImageRightProps = React.HTMLAttributes<HTMLDivElement> & {
    *
    * @default undefined
    */
-  image?: string | React.ReactNode;
-
-  /**
-   * Image container width. value of `width` css property
-   * @default `150px`
-   */
-  imageWidth?: string | number;
-
-  /**
-   * Image container style
-   * @default undefined
-   */
-  imageContainerStyle?: React.CSSProperties;
+  backgroundImageUrl?: string;
 
   /**
    * Image overlay
    * @default false
    */
-  imageOverlay?: boolean;
+  overlay?: boolean;
+
+  /**
+   * Overlay component (`div`) class
+   * @default undefined
+   */
+  overlayClass?: string;
 
   /**
    * Image overlay style
    * @default undefined
    */
-  imageOverlayStyle?: React.CSSProperties;
+  overlayStyle?: React.CSSProperties;
 };
 
-const NewsletterStackedImageRight = React.forwardRef<
+const NewsletterStackedBackground = React.forwardRef<
   HTMLDivElement,
-  NewsletterStackedImageRightProps
+  NewsletterStackedBackgroundProps
 >((props, ref) => {
   // explode props
   const {
@@ -88,24 +85,27 @@ const NewsletterStackedImageRight = React.forwardRef<
     padding,
     bordered,
     shadow,
-    image,
-    imageWidth,
-    imageContainerStyle,
-    imageOverlay,
-    imageOverlayStyle,
+    backgroundImageUrl,
+    overlay,
+    overlayStyle,
+    overlayClass,
 
     /**
      * Native props
      */
     className,
+    style,
     ...restProps
   } = props;
+
+  // explode style
+  const { backgroundImage, backgroundSize, ...restStyle } = style ?? {};
   return (
     <div
       ref={ref}
       className={clsx([
         className,
-        "flex flex-row flex-nowrap overflow-hidden",
+        "flex flex-row overflow-hidden relative",
         gapClass,
         typeof bordered === "string" ? bordered : undefined,
         typeof shadow === "string" ? shadow : undefined,
@@ -117,8 +117,34 @@ const NewsletterStackedImageRight = React.forwardRef<
           "p-4": padding === true,
         },
       ])}
+      style={{
+        backgroundSize: backgroundSize ?? "cover",
+        backgroundImage: backgroundImage ?? `url(${backgroundImageUrl})`,
+        ...restStyle,
+      }}
       {...restProps}
     >
+      {overlay === true &&
+        (function () {
+          // overlay style explode
+          const { pointerEvents: pointerEventsOverlay, ...restOverlayStyle } =
+            overlayStyle ?? {};
+          return (
+            <div
+              className={clsx([
+                overlayClass,
+                "absolute inset-0 z-0",
+                {
+                  "bg-primary-500": overlayStyle === undefined,
+                },
+              ])}
+              style={{
+                pointerEvents: pointerEventsOverlay ?? "none",
+                ...restOverlayStyle,
+              }}
+            ></div>
+          );
+        })()}
       {(() => {
         // form props
         const {
@@ -128,64 +154,31 @@ const NewsletterStackedImageRight = React.forwardRef<
         } = formProps ?? {};
         return (
           <NewsletterStacked
-            className={clsx([formClassName, "flex-auto"])}
+            className={clsx([
+              formClassName,
+              "flex-auto",
+              { "z-10": overlay === true },
+            ])}
             padding={formPadding ?? true}
             {...restFormProps}
           />
-        );
-      })()}
-      {(() => {
-        // explode image container props
-        const { backgroundImage, width, ...restImageContainerStyle } =
-          imageContainerStyle ?? {};
-        return (
-          <Flex
-            direction="row"
-            wrap="nowrap"
-            items="stretch"
-            justify="center"
-            className={clsx(["relative overflow-hidden"])}
-            style={{
-              width: width ?? imageWidth,
-              backgroundImage:
-                backgroundImage ??
-                (typeof image === "string" ? `url(${image})` : undefined),
-              ...restImageContainerStyle,
-            }}
-          >
-            {typeof image !== "string" && image}
-
-            {imageOverlay === true && (
-              <div
-                className={clsx([
-                  "absolute w-full h-full",
-                  {
-                    "bg-primary-500 bg-opacity-25":
-                      imageOverlayStyle === undefined,
-                  },
-                ])}
-                style={imageOverlayStyle}
-              ></div>
-            )}
-          </Flex>
         );
       })()}
     </div>
   );
 });
 
-NewsletterStackedImageRight.defaultProps = {
+NewsletterStackedBackground.defaultProps = {
   formProps: undefined,
   gapClass: undefined,
-  padding: false,
+  padding: true,
   rounded: false,
   bordered: false,
   shadow: false,
-  image: undefined,
-  imageContainerStyle: undefined,
-  imageOverlay: false,
-  imageOverlayStyle: undefined,
-  imageWidth: "150px",
+  backgroundImageUrl: undefined,
+  overlay: false,
+  overlayClass: undefined,
+  overlayStyle: undefined,
 };
 
-export default NewsletterStackedImageRight;
+export default NewsletterStackedBackground;

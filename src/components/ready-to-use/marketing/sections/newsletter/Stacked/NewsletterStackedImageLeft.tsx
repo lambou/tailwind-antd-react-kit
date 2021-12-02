@@ -12,19 +12,23 @@ type NewsletterStackedImageLeftProps = React.HTMLAttributes<HTMLDivElement> & {
   /**
    * Gap class
    *
-   * @default `gap-2`
+   * @default undefined
    */
   gapClass?: string;
 
   /**
    * Padding
    * when the value is `true`, the tailwind class `p-4` will be applied
+   *
+   * @default false
    */
   padding?: boolean | string;
 
   /**
    * Rounded
    * when the value is `true`, the tailwind class `rounded-lg` will be applied
+   *
+   * @default false
    */
   rounded?: boolean | string;
 
@@ -47,7 +51,7 @@ type NewsletterStackedImageLeftProps = React.HTMLAttributes<HTMLDivElement> & {
   /**
    * Image
    *
-   * @default null
+   * @default undefined
    */
   image?: string | React.ReactNode;
 
@@ -175,8 +179,17 @@ const NewsletterStackedImageLeft = React.forwardRef<
 });
 
 NewsletterStackedImageLeft.defaultProps = {
-  imageWidth: "150px",
+  formProps: undefined,
+  gapClass: undefined,
+  padding: false,
   rounded: false,
+  bordered: false,
+  shadow: false,
+  image: undefined,
+  imageContainerStyle: undefined,
+  imageOverlay: false,
+  imageOverlayStyle: undefined,
+  imageWidth: "150px",
 };
 
 export default NewsletterStackedImageLeft;

@@ -155,7 +155,7 @@ const NewsletterStacked = React.forwardRef<
           switch (typeof texts.title) {
             case "string":
               return (
-                <div className="font-bold text-xl text-gray-900">
+                <div className="font-semibold text-xl text-gray-900">
                   {texts.title}
                 </div>
               );
