@@ -58,7 +58,7 @@ const Template: ComponentStory<typeof NewsletterStackedBackground> = (args) => {
 
 export const Default = Template.bind({});
 Default.args = {
-  className: "text-white",
+  className: "",
   overlayStyle: {
     backgroundColor: "#1890ff",
     opacity: 0.45,

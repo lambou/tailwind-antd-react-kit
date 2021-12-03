@@ -23,7 +23,7 @@ export default {
     },
     centered: {
       type: "boolean",
-      defaultValue: true,
+      defaultValue: false,
     },
     icon: {
       type: "boolean",
@@ -45,7 +45,6 @@ export default {
 } as ComponentMeta<typeof NewsletterExtended>;
 
 const Template: ComponentStory<typeof NewsletterExtended> = (args) => {
-  //   const [formInstance] = useForm();
   return (
     <div className="container mx-auto">
       <NewsletterExtended {...args} />

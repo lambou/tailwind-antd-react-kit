@@ -235,7 +235,7 @@ NewsletterExtended.defaultProps = {
   layout: "horizontal",
   padding: true,
   rounded: false,
-  centered: true,
+  centered: false,
   shadow: false,
   bordered: false,
   icon: false,

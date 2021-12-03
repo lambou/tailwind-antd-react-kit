@@ -50,7 +50,6 @@ export default {
 const Template: ComponentStory<typeof NewsletterExtendedBackground> = (
   args
 ) => {
-  //   const [formInstance] = useForm();
   return (
     <div className="container mx-auto">
       <NewsletterExtendedBackground {...args} />
