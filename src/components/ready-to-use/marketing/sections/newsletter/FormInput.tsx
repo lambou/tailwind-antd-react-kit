@@ -139,7 +139,8 @@ const FormInput = React.forwardRef<any, FormInputProps>((props, ref) => {
         gapClass,
         {
           "flex-col items-center": layout === "vertical",
-          "flex-row items-start": layout === "horizontal",
+          "flex-row items-start flex-wrap md:flex-nowrap":
+            layout === "horizontal",
           "justify-center": centered,
           "justify-start": !centered,
         },

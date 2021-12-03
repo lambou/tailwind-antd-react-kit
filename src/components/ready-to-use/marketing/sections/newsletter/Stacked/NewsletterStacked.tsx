@@ -140,11 +140,7 @@ const NewsletterStacked = React.forwardRef<
         (function () {
           switch (typeof texts.preTitle) {
             case "string":
-              return (
-                <div className="text-sm uppercase text-gray-400">
-                  {texts.preTitle}
-                </div>
-              );
+              return <div className="text-sm uppercase">{texts.preTitle}</div>;
 
             default:
               return texts.preTitle;
@@ -154,11 +150,7 @@ const NewsletterStacked = React.forwardRef<
         (function () {
           switch (typeof texts.title) {
             case "string":
-              return (
-                <div className="font-semibold text-xl text-gray-900">
-                  {texts.title}
-                </div>
-              );
+              return <div className="font-semibold text-xl">{texts.title}</div>;
 
             default:
               return texts.title;
@@ -168,9 +160,7 @@ const NewsletterStacked = React.forwardRef<
         (function () {
           switch (typeof texts.body) {
             case "string":
-              return (
-                <div className="text-base text-gray-500">{texts.body}</div>
-              );
+              return <div className="text-base">{texts.body}</div>;
 
             default:
               return texts.body;
@@ -178,12 +168,15 @@ const NewsletterStacked = React.forwardRef<
         })()}
       {(() => {
         // explode form input props
-        const { layout, className, ...restFormInputProps } =
-          formInputProps ?? {};
+        const {
+          layout: formInputLayout,
+          className: formInputClassName,
+          ...restFormInputProps
+        } = formInputProps ?? {};
         return (
           <FormInput
-            layout={layout ?? "vertical"}
-            className={clsx([className, "w-full"])}
+            layout={formInputLayout ?? "vertical"}
+            className={clsx([formInputClassName, "w-full"])}
             {...restFormInputProps}
           />
         );
