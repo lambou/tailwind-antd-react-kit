@@ -1,9 +1,9 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import NewsletterExtendedImageLeft from "../../../../../components/ready-to-use/marketing/sections/newsletter/Extended/NewsletterExtendedImageLeft";
+import NewsletterExtendedImageRight from "../../../../../components/ready-to-use/marketing/sections/newsletter/Extended/NewsletterExtendedImageRight";
 
 export default {
-  title: "Ready-to-use/Marketing/Sections/Newsletter/Extended/ImageLeft",
-  component: NewsletterExtendedImageLeft,
+  title: "Ready-to-use/Marketing/Sections/Newsletter/Extended/ImageRight",
+  component: NewsletterExtendedImageRight,
   argTypes: {
     className: {
       type: "string",
@@ -40,12 +40,14 @@ export default {
       type: "string",
     },
   },
-} as ComponentMeta<typeof NewsletterExtendedImageLeft>;
+} as ComponentMeta<typeof NewsletterExtendedImageRight>;
 
-const Template: ComponentStory<typeof NewsletterExtendedImageLeft> = (args) => {
+const Template: ComponentStory<typeof NewsletterExtendedImageRight> = (
+  args
+) => {
   return (
     <div className="w-full">
-      <NewsletterExtendedImageLeft {...args} />
+      <NewsletterExtendedImageRight {...args} />
     </div>
   );
 };
