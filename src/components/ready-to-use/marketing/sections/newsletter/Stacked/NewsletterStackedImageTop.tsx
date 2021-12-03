@@ -74,6 +74,13 @@ type NewsletterStackedImageTopProps = React.HTMLAttributes<HTMLDivElement> & {
    * @default undefined
    */
   imageOverlayStyle?: React.CSSProperties;
+
+  /**
+   * Hide overflow
+   *
+   * @default `true`
+   */
+  overflowHidden?: boolean;
 };
 
 const NewsletterStackedImageTop = React.forwardRef<
@@ -93,6 +100,7 @@ const NewsletterStackedImageTop = React.forwardRef<
     imageContainerStyle,
     imageOverlay,
     imageOverlayStyle,
+    overflowHidden,
 
     /**
      * Native props
@@ -105,12 +113,13 @@ const NewsletterStackedImageTop = React.forwardRef<
       ref={ref}
       className={clsx([
         className,
-        "flex flex-col overflow-hidden",
+        "flex flex-col",
         gapClass,
         typeof bordered === "string" ? bordered : undefined,
         typeof shadow === "string" ? shadow : undefined,
         typeof padding === "string" ? padding : undefined,
         {
+          "overflow-hidden": overflowHidden === true,
           border: bordered === true,
           "rounded-lg": rounded === true,
           "shadow-md": shadow === true,
@@ -186,6 +195,7 @@ NewsletterStackedImageTop.defaultProps = {
   imageOverlay: false,
   imageOverlayStyle: undefined,
   imageHeight: "100px",
+  overflowHidden: true,
 };
 
 export default NewsletterStackedImageTop;

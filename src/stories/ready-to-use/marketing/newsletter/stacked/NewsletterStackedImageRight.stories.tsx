@@ -39,6 +39,10 @@ export default {
     gapClass: {
       type: "string",
     },
+    overflowHidden: {
+      type: "boolean",
+      default: true,
+    },
   },
 } as ComponentMeta<typeof NewsletterStackedImageRight>;
 

@@ -41,6 +41,10 @@ export default {
       defaultValue: "gap-5",
     },
     texts: {},
+    overflowHidden: {
+      type: "boolean",
+      default: true,
+    },
   },
 } as ComponentMeta<typeof NewsletterExtended>;
 

@@ -71,6 +71,13 @@ type NewsletterStackedBackgroundProps = React.HTMLAttributes<HTMLDivElement> & {
    * @default undefined
    */
   overlayStyle?: React.CSSProperties;
+
+  /**
+   * Hide overflow
+   *
+   * @default `true`
+   */
+  overflowHidden?: boolean;
 };
 
 const NewsletterStackedBackground = React.forwardRef<
@@ -89,6 +96,7 @@ const NewsletterStackedBackground = React.forwardRef<
     overlay,
     overlayStyle,
     overlayClass,
+    overflowHidden,
 
     /**
      * Native props
@@ -105,12 +113,13 @@ const NewsletterStackedBackground = React.forwardRef<
       ref={ref}
       className={clsx([
         className,
-        "flex flex-row overflow-hidden relative",
+        "flex flex-row relative",
         gapClass,
         typeof bordered === "string" ? bordered : undefined,
         typeof shadow === "string" ? shadow : undefined,
         typeof padding === "string" ? padding : undefined,
         {
+          "overflow-hidden": overflowHidden === true,
           border: bordered === true,
           "rounded-lg": rounded === true,
           "shadow-md": shadow === true,

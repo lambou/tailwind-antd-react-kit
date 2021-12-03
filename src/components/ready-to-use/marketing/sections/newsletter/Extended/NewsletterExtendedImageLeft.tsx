@@ -80,6 +80,13 @@ type NewsletterExtendedImageLeftProps = React.HTMLAttributes<HTMLDivElement> & {
    * @default undefined
    */
   imageOverlayStyle?: React.CSSProperties;
+
+  /**
+   * Hide overflow
+   *
+   * @default `true`
+   */
+  overflowHidden?: boolean;
 };
 
 const NewsletterExtendedImageLeft = React.forwardRef<
@@ -99,6 +106,7 @@ const NewsletterExtendedImageLeft = React.forwardRef<
     imageContainerStyle,
     imageOverlay,
     imageOverlayStyle,
+    overflowHidden,
 
     /**
      * Native props
@@ -111,12 +119,13 @@ const NewsletterExtendedImageLeft = React.forwardRef<
       ref={ref}
       className={clsx([
         className,
-        "flex flex-row overflow-hidden",
+        "flex flex-row",
         gapClass,
         typeof bordered === "string" ? bordered : undefined,
         typeof shadow === "string" ? shadow : undefined,
         typeof padding === "string" ? padding : undefined,
         {
+          "overflow-hidden": overflowHidden === true,
           border: bordered === true,
           "rounded-lg": rounded === true,
           "shadow-md": shadow === true,
@@ -192,6 +201,7 @@ NewsletterExtendedImageLeft.defaultProps = {
   imageOverlay: false,
   imageOverlayStyle: undefined,
   imageWidth: "150px",
+  overflowHidden: true
 };
 
 export default NewsletterExtendedImageLeft;

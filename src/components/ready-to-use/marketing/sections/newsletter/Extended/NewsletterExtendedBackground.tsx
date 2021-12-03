@@ -1,6 +1,8 @@
 import clsx from "clsx";
 import React from "react";
-import NewsletterExtended, { NewsletterExtendedProps } from "./NewsletterExtended";
+import NewsletterExtended, {
+  NewsletterExtendedProps,
+} from "./NewsletterExtended";
 
 type NewsletterExtendedBackgroundProps = React.HTMLAttributes<HTMLDivElement> & {
   /**
@@ -71,6 +73,13 @@ type NewsletterExtendedBackgroundProps = React.HTMLAttributes<HTMLDivElement> & 
    * @default undefined
    */
   overlayStyle?: React.CSSProperties;
+
+  /**
+   * Hide overflow
+   *
+   * @default `true`
+   */
+  overflowHidden?: boolean;
 };
 
 const NewsletterExtendedBackground = React.forwardRef<
@@ -89,6 +98,7 @@ const NewsletterExtendedBackground = React.forwardRef<
     overlay,
     overlayStyle,
     overlayClass,
+    overflowHidden,
 
     /**
      * Native props
@@ -105,12 +115,13 @@ const NewsletterExtendedBackground = React.forwardRef<
       ref={ref}
       className={clsx([
         className,
-        "flex flex-row overflow-hidden relative",
+        "flex flex-row relative",
         gapClass,
         typeof bordered === "string" ? bordered : undefined,
         typeof shadow === "string" ? shadow : undefined,
         typeof padding === "string" ? padding : undefined,
         {
+          "overflow-hidden": overflowHidden === true,
           border: bordered === true,
           "rounded-lg": rounded === true,
           "shadow-md": shadow === true,
@@ -179,6 +190,7 @@ NewsletterExtendedBackground.defaultProps = {
   overlay: false,
   overlayClass: undefined,
   overlayStyle: undefined,
+  overflowHidden: true,
 };
 
 export default NewsletterExtendedBackground;

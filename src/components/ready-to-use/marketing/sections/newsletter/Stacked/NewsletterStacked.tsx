@@ -58,6 +58,13 @@ export type NewsletterStackedProps = React.HTMLAttributes<HTMLDivElement> & {
   icon?: boolean | React.ReactNode;
 
   /**
+   * Hide overflow
+   *
+   * @default `true`
+   */
+  overflowHidden?: boolean;
+
+  /**
    * Component texts
    *
    * @default {}
@@ -99,6 +106,7 @@ const NewsletterStacked = React.forwardRef<
     bordered,
     shadow,
     icon,
+    overflowHidden,
     texts,
 
     /**
@@ -112,12 +120,13 @@ const NewsletterStacked = React.forwardRef<
       ref={ref}
       className={clsx([
         className,
-        "flex flex-col overflow-hidden",
+        "flex flex-col",
         gapClass,
         typeof bordered === "string" ? bordered : undefined,
         typeof shadow === "string" ? shadow : undefined,
         typeof padding === "string" ? padding : undefined,
         {
+          "overflow-hidden": overflowHidden === true,
           "items-center": centered === true,
           "rounded-lg": rounded === true,
           border: bordered === true,
@@ -193,6 +202,7 @@ NewsletterStacked.defaultProps = {
   shadow: false,
   bordered: false,
   icon: false,
+  overflowHidden: true,
 };
 
 export default NewsletterStacked;

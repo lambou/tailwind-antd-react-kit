@@ -74,6 +74,13 @@ type NewsletterStackedImageRightProps = React.HTMLAttributes<HTMLDivElement> & {
    * @default undefined
    */
   imageOverlayStyle?: React.CSSProperties;
+
+  /**
+   * Hide overflow
+   *
+   * @default `true`
+   */
+  overflowHidden?: boolean;
 };
 
 const NewsletterStackedImageRight = React.forwardRef<
@@ -93,6 +100,7 @@ const NewsletterStackedImageRight = React.forwardRef<
     imageContainerStyle,
     imageOverlay,
     imageOverlayStyle,
+    overflowHidden,
 
     /**
      * Native props
@@ -105,12 +113,13 @@ const NewsletterStackedImageRight = React.forwardRef<
       ref={ref}
       className={clsx([
         className,
-        "flex flex-row flex-nowrap overflow-hidden",
+        "flex flex-row flex-nowrap",
         gapClass,
         typeof bordered === "string" ? bordered : undefined,
         typeof shadow === "string" ? shadow : undefined,
         typeof padding === "string" ? padding : undefined,
         {
+          "overflow-hidden": overflowHidden === true,
           border: bordered === true,
           "rounded-lg": rounded === true,
           "shadow-md": shadow === true,
@@ -186,6 +195,7 @@ NewsletterStackedImageRight.defaultProps = {
   imageOverlay: false,
   imageOverlayStyle: undefined,
   imageWidth: "150px",
+  overflowHidden: true,
 };
 
 export default NewsletterStackedImageRight;

@@ -39,6 +39,10 @@ export default {
     gapClass: {
       type: "string",
     },
+    overflowHidden: {
+      type: "boolean",
+      default: true,
+    },
   },
 } as ComponentMeta<typeof NewsletterExtendedImageLeft>;
 
@@ -56,7 +60,7 @@ Default.args = {
   image: "https://picsum.photos/500/280",
   imageOverlayStyle: {
     backgroundColor: "#1890ff",
-    opacity: 0.45,
+    opacity: 0.6,
   },
   formProps: {
     className: "flex-wrap flex-wrap lg:flex-nowrap",

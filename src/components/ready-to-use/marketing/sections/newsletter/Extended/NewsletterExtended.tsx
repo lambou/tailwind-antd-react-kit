@@ -65,6 +65,13 @@ export type NewsletterExtendedProps = React.HTMLAttributes<HTMLDivElement> & {
   icon?: boolean | React.ReactNode;
 
   /**
+   * Hide overflow
+   * 
+   * @default `true`
+   */
+  overflowHidden?:boolean;
+
+  /**
    * Component texts
    *
    * @default {}
@@ -120,6 +127,7 @@ const NewsletterExtended = React.forwardRef<
     bordered,
     shadow,
     icon,
+    overflowHidden,
     texts,
 
     /**
@@ -133,12 +141,13 @@ const NewsletterExtended = React.forwardRef<
       ref={ref}
       className={clsx([
         className,
-        "flex overflow-hidden justify-between",
+        "flex justify-between",
         gapClass,
         typeof bordered === "string" ? bordered : undefined,
         typeof shadow === "string" ? shadow : undefined,
         typeof padding === "string" ? padding : undefined,
         {
+          "overflow-hidden": overflowHidden === true,
           "flex-row": layout === "horizontal",
           "flex-col": layout === "vertical",
           "items-center": centered === true,
@@ -239,6 +248,7 @@ NewsletterExtended.defaultProps = {
   shadow: false,
   bordered: false,
   icon: false,
+  overflowHidden: true,
 };
 
 export default NewsletterExtended;

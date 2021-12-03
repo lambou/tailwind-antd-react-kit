@@ -36,6 +36,10 @@ export default {
       defaultValue: "gap-2",
     },
     texts: {},
+    overflowHidden: {
+      type: "boolean",
+      default: true,
+    },
   },
 } as ComponentMeta<typeof NewsletterStacked>;
 

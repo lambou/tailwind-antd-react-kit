@@ -44,6 +44,10 @@ export default {
       type: "object",
       defaultValue: undefined,
     },
+    overflowHidden: {
+      type: "boolean",
+      default: true,
+    },
   },
 } as ComponentMeta<typeof NewsletterStackedBackground>;
 
