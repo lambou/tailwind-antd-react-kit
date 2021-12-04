@@ -109,6 +109,7 @@ Overlay.args = {
     opacity: 0.6,
   },
   formProps: {
+    className: "flex-wrap lg:flex-nowrap",
     formInputProps: {
       className: "flex-auto",
       buttonProps: {
