@@ -72,21 +72,22 @@ export type NewsletterStackedProps = React.HTMLAttributes<HTMLDivElement> & {
   texts?: {
     /**
      * Newsletter form pre-title
+     * 
+     * tailwind class: `text-sm uppercase`
      */
     preTitle?: React.ReactNode;
 
     /**
      * Newsletter form title
+     * 
+     * tailwind class: `font-semibold text-xl`
      */
     title?: React.ReactNode;
 
     /**
-     * Newsletter subscribe button text
-     */
-    button?: React.ReactNode;
-
-    /**
      * Newsletter body text
+     * 
+     * tailwind class: `text-base`
      */
     body?: React.ReactNode;
   };

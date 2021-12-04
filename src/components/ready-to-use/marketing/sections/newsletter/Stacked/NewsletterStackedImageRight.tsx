@@ -81,6 +81,11 @@ type NewsletterStackedImageRightProps = React.HTMLAttributes<HTMLDivElement> & {
    * @default `true`
    */
   overflowHidden?: boolean;
+
+  /**
+   * Component in the middle
+   */
+  middle?: React.ReactNode;
 };
 
 const NewsletterStackedImageRight = React.forwardRef<
@@ -101,6 +106,7 @@ const NewsletterStackedImageRight = React.forwardRef<
     imageOverlay,
     imageOverlayStyle,
     overflowHidden,
+    middle,
 
     /**
      * Native props
@@ -143,6 +149,7 @@ const NewsletterStackedImageRight = React.forwardRef<
           />
         );
       })()}
+      {middle}
       {(() => {
         // explode image container props
         const { backgroundImage, width, ...restImageContainerStyle } =
@@ -196,6 +203,7 @@ NewsletterStackedImageRight.defaultProps = {
   imageOverlayStyle: undefined,
   imageWidth: "150px",
   overflowHidden: true,
+  middle: undefined,
 };
 
 export default NewsletterStackedImageRight;

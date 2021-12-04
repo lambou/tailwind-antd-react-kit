@@ -209,6 +209,7 @@ NewsletterExtendedImageLeft.defaultProps = {
   imageOverlayStyle: undefined,
   imageWidth: "150px",
   overflowHidden: true,
+  middle: undefined
 };
 
 export default NewsletterExtendedImageLeft;

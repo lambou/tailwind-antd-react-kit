@@ -92,11 +92,6 @@ export type NewsletterExtendedProps = React.HTMLAttributes<HTMLDivElement> & {
     title?: React.ReactNode;
 
     /**
-     * Newsletter subscribe button text
-     */
-    button?: React.ReactNode;
-
-    /**
      * Newsletter body text
      * 
      * tailwind class: `text-xl`
