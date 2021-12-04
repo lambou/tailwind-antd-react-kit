@@ -63,7 +63,7 @@ Default.args = {
     opacity: 0.6,
   },
   formProps: {
-    className: "flex-wrap flex-wrap lg:flex-nowrap",
+    className: "flex-wrap lg:flex-nowrap",
     formInputProps: {
       className: "",
       buttonProps: {
