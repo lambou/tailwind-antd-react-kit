@@ -67,6 +67,31 @@ Default.args = {
   },
   texts: {
     title: "Sign up to our newsletter",
-    body: "Get the latest news, updates from us",
+    body: <span className="text-base text-gray-500">
+    Get the latest news, updates from us
+  </span>,
+  },
+};
+
+export const Dark = Template.bind({});
+Dark.args = {
+  className: "bg-gray-800 text-white",
+  formInputProps: {
+    className: "flex-auto",
+    buttonProps: {
+      className: "w-full",
+    },
+    inputProps: {
+      placeholder: "Enter your email address...",
+    },
+    errorMessageText: "The email address is required",
+  },
+  texts: {
+    title: "Sign up to our newsletter",
+    body: (
+      <span className="text-base text-gray-400">
+        Get the latest news, updates from us
+      </span>
+    ),
   },
 };
