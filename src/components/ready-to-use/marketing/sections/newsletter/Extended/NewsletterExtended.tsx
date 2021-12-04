@@ -208,7 +208,7 @@ const NewsletterExtended = React.forwardRef<
             }
           })()}
       </Flex>
-      <Flex direction="column" gap="0.5rem" className="max-w-sm md:max-w-md">
+      <Flex direction="column" gap="0.5rem" className="max-w-sm xl:max-w-md">
         {(() => {
           // explode form input props
           const {

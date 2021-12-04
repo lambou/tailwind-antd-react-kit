@@ -87,6 +87,11 @@ type NewsletterExtendedImageLeftProps = React.HTMLAttributes<HTMLDivElement> & {
    * @default `true`
    */
   overflowHidden?: boolean;
+
+  /**
+   * Component in the middle
+   */
+  middle?: React.ReactNode;
 };
 
 const NewsletterExtendedImageLeft = React.forwardRef<
@@ -107,6 +112,7 @@ const NewsletterExtendedImageLeft = React.forwardRef<
     imageOverlay,
     imageOverlayStyle,
     overflowHidden,
+    middle,
 
     /**
      * Native props
@@ -170,6 +176,7 @@ const NewsletterExtendedImageLeft = React.forwardRef<
           </Flex>
         );
       })()}
+      {middle}
       {(() => {
         // form props
         const {
@@ -201,7 +208,7 @@ NewsletterExtendedImageLeft.defaultProps = {
   imageOverlay: false,
   imageOverlayStyle: undefined,
   imageWidth: "150px",
-  overflowHidden: true
+  overflowHidden: true,
 };
 
 export default NewsletterExtendedImageLeft;
