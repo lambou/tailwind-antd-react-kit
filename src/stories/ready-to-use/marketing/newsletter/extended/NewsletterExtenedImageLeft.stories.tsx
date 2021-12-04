@@ -93,7 +93,7 @@ Default.args = {
 
 export const Dark = Template.bind({});
 Dark.args = {
-  className: "bg-gray-800 text-white flex-wrap md:flex-nowrap",
+  className: "bg-gray-800 text-white",
   bordered: false,
   image: "https://picsum.photos/500/280",
   imageOverlay: true,
