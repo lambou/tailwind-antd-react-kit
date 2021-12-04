@@ -38,7 +38,7 @@ export default {
     texts: {},
     overflowHidden: {
       type: "boolean",
-      default: true,
+      defaultValue: true,
     },
   },
 } as ComponentMeta<typeof NewsletterStacked>;

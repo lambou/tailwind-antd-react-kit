@@ -41,7 +41,7 @@ export default {
     },
     overflowHidden: {
       type: "boolean",
-      default: true,
+      defaultValue: true,
     },
   },
 } as ComponentMeta<typeof NewsletterExtendedImageLeft>;
