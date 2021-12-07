@@ -1,4 +1,3 @@
-import { MailOutlined } from "@ant-design/icons";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import NewsletterExtendedBackground from "../../../../../components/ready-to-use/marketing/sections/newsletter/Extended/NewsletterExtendedBackground";
 

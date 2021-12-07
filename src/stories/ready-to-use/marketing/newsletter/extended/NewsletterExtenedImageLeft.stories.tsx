@@ -103,7 +103,7 @@ DefaultInclined.args = {
   middle: (
     <div className="relative self-stretch z-0">
       <svg
-        class="hidden lg:block h-full absolute top-0 bottom-0 w-48 text-white transform -translate-x-1/2"
+        className="hidden lg:block h-full absolute top-0 bottom-0 w-48 text-white transform -translate-x-1/2"
         fill="currentColor"
         viewBox="0 0 100 100"
         preserveAspectRatio="none"
@@ -202,7 +202,7 @@ DarkInclined.args = {
   middle: (
     <div className="relative self-stretch z-0">
       <svg
-        class="hidden lg:block h-full absolute top-0 bottom-0 w-48 text-gray-800 transform -translate-x-1/2"
+        className="hidden lg:block h-full absolute top-0 bottom-0 w-48 text-gray-800 transform -translate-x-1/2"
         fill="currentColor"
         viewBox="0 0 100 100"
         preserveAspectRatio="none"

@@ -152,8 +152,12 @@ const NewsletterStackedImageRight = React.forwardRef<
       {middle}
       {(() => {
         // explode image container props
-        const { backgroundImage, width, ...restImageContainerStyle } =
-          imageContainerStyle ?? {};
+        const {
+          backgroundImage,
+          backgroundSize,
+          width,
+          ...restImageContainerStyle
+        } = imageContainerStyle ?? {};
         return (
           <Flex
             direction="row"
@@ -166,6 +170,7 @@ const NewsletterStackedImageRight = React.forwardRef<
               backgroundImage:
                 backgroundImage ??
                 (typeof image === "string" ? `url(${image})` : undefined),
+              backgroundSize: backgroundSize ?? "cover",
               ...restImageContainerStyle,
             }}
           >
