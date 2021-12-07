@@ -75,7 +75,7 @@ const HeroCard = React.forwardRef<any, HeroCardProps>((props, ref) => {
         "flex flex-col items-start",
         {
           "items-center": centered === true,
-          "px-5 py-16 md:px-10 md:py-28": padding === true,
+          "px-5 py-12 md:px-10 md:py-24": padding === true,
         },
       ])}
       {...restProps}
