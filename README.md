@@ -24,12 +24,21 @@ class Example extends Component {
 }
 ```
 
-## Showcases
+## Showcase
 
+Import the component
 
-![hero dark imageRight inclined](https://i.ibb.co/SQyTy2q/hero-dark-imageright-inclined.png)
+```typescript
+import { HeroCardImageRight } from "tailwind-antd-react-kit";
+```
 
-![Hero default background](https://i.ibb.co/LkXwFbc/hero-default-background.png)
+![hero dark imageRight inclined](https://i.ibb.co/HKLYTqg/hero-dark-imageright-inclined.png)
+
+```typescript
+import { HeroCardImageRight } from "tailwind-antd-react-kit";
+```
+
+![Hero Default ImageRight Inclined](https://i.ibb.co/YZdYgRD/hero-default-imageright.png)
 
 ## Docs
 
