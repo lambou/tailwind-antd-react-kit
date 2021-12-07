@@ -1,8 +1,7 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import HeroCard from "../../../../../components/ready-to-use/marketing/sections/hero/cards/HeroCard";
-import HeroCardTextualBody from "../../../../../components/ready-to-use/marketing/sections/hero/components/HeroCardTextualBody";
-import HeroButton from "../../../../../components/ready-to-use/marketing/sections/hero/components/HeroButton";
 import { Button } from "antd";
+import HeroCard from "../../../../../components/ready-to-use/marketing/sections/hero/cards/HeroCard";
+import HeroButton from "../../../../../components/ready-to-use/marketing/sections/hero/components/HeroButton";
 
 export default {
   title: "Ready-to-use/Marketing/Sections/Hero/Cards/HeroCard",

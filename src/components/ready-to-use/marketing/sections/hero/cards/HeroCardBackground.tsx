@@ -1,14 +1,12 @@
 import clsx from "clsx";
 import React from "react";
-import NewsletterExtended, {
-  NewsletterExtendedProps,
-} from "./NewsletterExtended";
+import HeroCard, { HeroCardProps } from "./HeroCard";
 
-export type NewsletterExtendedBackgroundProps = React.HTMLAttributes<HTMLDivElement> & {
+export type HeroCardBackgroundProps = React.HTMLAttributes<HTMLDivElement> & {
   /**
    * Newsletter form
    */
-  formProps?: NewsletterExtendedProps;
+  cardProps?: HeroCardProps;
 
   /**
    * Gap class
@@ -24,30 +22,6 @@ export type NewsletterExtendedBackgroundProps = React.HTMLAttributes<HTMLDivElem
    * @default true
    */
   padding?: boolean | string;
-
-  /**
-   * Rounded
-   * when the value is `true`, the tailwind class `rounded-lg` will be applied
-   *
-   * @default false
-   */
-  rounded?: boolean | string;
-
-  /**
-   * Bordered
-   * when the value is `true`, the tailwind class `border` will be applied
-   *
-   * @default false
-   */
-  bordered?: boolean | string;
-
-  /**
-   * Shadow
-   * when the value is `true`, the tailwind class `shadow-md` will be applied
-   *
-   * @default false
-   */
-  shadow?: boolean | string;
 
   /**
    * Image
@@ -82,18 +56,15 @@ export type NewsletterExtendedBackgroundProps = React.HTMLAttributes<HTMLDivElem
   overflowHidden?: boolean;
 };
 
-const NewsletterExtendedBackground = React.forwardRef<
+const HeroCardBackground = React.forwardRef<
   HTMLDivElement,
-  NewsletterExtendedBackgroundProps
+  HeroCardBackgroundProps
 >((props, ref) => {
   // explode props
   const {
-    formProps,
+    cardProps,
     gapClass,
-    rounded,
     padding,
-    bordered,
-    shadow,
     backgroundImageUrl,
     overlay,
     overlayStyle,
@@ -117,14 +88,9 @@ const NewsletterExtendedBackground = React.forwardRef<
         className,
         "flex flex-row relative",
         gapClass,
-        typeof bordered === "string" ? bordered : undefined,
-        typeof shadow === "string" ? shadow : undefined,
         typeof padding === "string" ? padding : undefined,
         {
           "overflow-hidden": overflowHidden === true,
-          border: bordered === true,
-          "rounded-lg": rounded === true,
-          "shadow-md": shadow === true,
           "p-4": padding === true,
         },
       ])}
@@ -146,7 +112,8 @@ const NewsletterExtendedBackground = React.forwardRef<
                 overlayClass,
                 "absolute inset-0 z-0",
                 {
-                  "bg-primary-500":  overlayStyle === undefined && overlayClass === undefined,
+                  "bg-primary-500":
+                    overlayStyle === undefined && overlayClass === undefined,
                 },
               ])}
               style={{
@@ -162,9 +129,9 @@ const NewsletterExtendedBackground = React.forwardRef<
           padding: formPadding,
           className: formClassName,
           ...restFormProps
-        } = formProps ?? {};
+        } = cardProps ?? {};
         return (
-          <NewsletterExtended
+          <HeroCard
             className={clsx([
               formClassName,
               "flex-auto",
@@ -179,13 +146,10 @@ const NewsletterExtendedBackground = React.forwardRef<
   );
 });
 
-NewsletterExtendedBackground.defaultProps = {
-  formProps: undefined,
+HeroCardBackground.defaultProps = {
+  cardProps: undefined,
   gapClass: undefined,
   padding: true,
-  rounded: false,
-  bordered: false,
-  shadow: false,
   backgroundImageUrl: undefined,
   overlay: false,
   overlayClass: undefined,
@@ -193,4 +157,4 @@ NewsletterExtendedBackground.defaultProps = {
   overflowHidden: true,
 };
 
-export default NewsletterExtendedBackground;
+export default HeroCardBackground;
