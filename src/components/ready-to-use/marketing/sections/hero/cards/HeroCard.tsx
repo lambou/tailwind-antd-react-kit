@@ -1,8 +1,7 @@
 import clsx from "clsx";
 import React from "react";
-import { Flex } from "../../../../..";
 import HeroCardTextualBody, {
-  HeroCardTextualBodyProps,
+    HeroCardTextualBodyProps
 } from "../components/HeroCardTextualBody";
 
 export type HeroCardProps = React.HTMLAttributes<HTMLDivElement> & {
@@ -76,7 +75,7 @@ const HeroCard = React.forwardRef<any, HeroCardProps>((props, ref) => {
         "flex flex-col items-start",
         {
           "items-center": centered === true,
-          "px-5 py-10 md:px-10 md:py-20": padding === true,
+          "px-5 py-16 md:px-10 md:py-28": padding === true,
         },
       ])}
       {...restProps}
@@ -109,7 +108,7 @@ const HeroCard = React.forwardRef<any, HeroCardProps>((props, ref) => {
           footerContainerStyle ?? {};
         return (
           <div
-            className={clsx("flex items-start justify-start")}
+            className={clsx("flex items-center md:items-start justify-center md:justify-start flex-wrap")}
             style={{
               gap: gapFooterContainerStyle ?? "0.75rem",
               ...restFooterContainerStyle,

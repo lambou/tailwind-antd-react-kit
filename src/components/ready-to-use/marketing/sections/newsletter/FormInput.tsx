@@ -2,7 +2,7 @@ import { Button, ButtonProps, Input, InputProps } from "antd";
 import Form, { FormProps, useForm } from "antd/lib/form/Form";
 import FormItem from "antd/lib/form/FormItem";
 import clsx from "clsx";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 export type FormInputProps = Omit<FormProps, "layout"> & {
   key?: React.Key | null;

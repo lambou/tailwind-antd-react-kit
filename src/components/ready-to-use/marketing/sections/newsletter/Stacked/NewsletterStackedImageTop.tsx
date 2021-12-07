@@ -3,7 +3,7 @@ import React from "react";
 import { Flex } from "../../../../..";
 import NewsletterStacked, { NewsletterStackedProps } from "./NewsletterStacked";
 
-type NewsletterStackedImageTopProps = React.HTMLAttributes<HTMLDivElement> & {
+export type NewsletterStackedImageTopProps = React.HTMLAttributes<HTMLDivElement> & {
   /**
    * Newsletter form
    */

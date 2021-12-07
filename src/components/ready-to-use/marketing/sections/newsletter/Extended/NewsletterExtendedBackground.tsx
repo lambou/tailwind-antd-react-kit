@@ -4,7 +4,7 @@ import NewsletterExtended, {
   NewsletterExtendedProps,
 } from "./NewsletterExtended";
 
-type NewsletterExtendedBackgroundProps = React.HTMLAttributes<HTMLDivElement> & {
+export type NewsletterExtendedBackgroundProps = React.HTMLAttributes<HTMLDivElement> & {
   /**
    * Newsletter form
    */

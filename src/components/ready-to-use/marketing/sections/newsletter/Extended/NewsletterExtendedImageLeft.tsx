@@ -5,7 +5,7 @@ import NewsletterExtended, {
   NewsletterExtendedProps,
 } from "./NewsletterExtended";
 
-type NewsletterExtendedImageLeftProps = React.HTMLAttributes<HTMLDivElement> & {
+export type NewsletterExtendedImageLeftProps = React.HTMLAttributes<HTMLDivElement> & {
   /**
    * Newsletter form
    */

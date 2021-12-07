@@ -2,7 +2,7 @@ import clsx from "clsx";
 import React from "react";
 import NewsletterStacked, { NewsletterStackedProps } from "./NewsletterStacked";
 
-type NewsletterStackedBackgroundProps = React.HTMLAttributes<HTMLDivElement> & {
+export type NewsletterStackedBackgroundProps = React.HTMLAttributes<HTMLDivElement> & {
   /**
    * Newsletter form
    */
