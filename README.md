@@ -24,6 +24,13 @@ class Example extends Component {
 }
 ```
 
+## Showcases
+
+
+![hero dark imageRight inclined](https://i.ibb.co/SQyTy2q/hero-dark-imageright-inclined.png)
+
+![Hero default background](https://i.ibb.co/LkXwFbc/hero-default-background.png)
+
 ## Docs
 
 [Documentation available here](https://lambou.github.io/tailwind-antd-react-kit)
