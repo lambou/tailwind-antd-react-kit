@@ -95,7 +95,6 @@ Custom.args = {
 
 export const Dark = Template.bind({});
 Dark.args = {
-  style: {},
   className: "text-white bg-gray-800",
   padding: true,
   textualBodyProps: {
