@@ -6,3 +6,5 @@ export type { HeroCardImageRightProps } from "./HeroCardImageRight";
 export { default as HeroCardImageRight } from "./HeroCardImageRight";
 export type { HeroCardImageLeftProps } from "./HeroCardImageLeft";
 export { default as HeroCardImageLeft } from "./HeroCardImageLeft";
+export type { HeroCardImageBottomProps } from "./HeroCardImageBottom";
+export { default as HeroCardImageBottom } from "./HeroCardImageBottom";
