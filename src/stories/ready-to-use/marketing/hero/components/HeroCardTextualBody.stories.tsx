@@ -41,9 +41,9 @@ export const Default = Template.bind({});
 Default.args = {
   className: "flex-auto",
   preTitle: "Don't say thank you",
-  title: "Design is not for everyone",
+  title: "Design for everyone",
   body:
-    "Sometimes you just have to accept that ready-made components are your best bet. Be shameless, it’s all about making money as fast as possible.",
+    "Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque, officiis? Sapiente ut nostrum odio eos veniam. Accusamus deserunt est modi atque, aliquam quasi qui fugit, consequatur, laboriosam ad quisquam laudantium.",
 };
 
 export const Custom = Template.bind({});
@@ -54,13 +54,14 @@ Custom.args = {
   ),
   title: (
     <div className="text-4xl tracking-tight font-extrabold sm:text-5xl md:text-6xl">
-      Design is not for <span style={{ color: "#1890ff" }}>everyone</span>
+      Design for <span style={{ color: "#1890ff" }}>everyone</span>
     </div>
   ),
   body: (
     <div className="text-lg leading-relaxed text-gray-600">
-      Sometimes you just have to accept that ready-made components are your best
-      bet. Be shameless, it’s all about making money as fast as possible.
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque, officiis?
+      Sapiente ut nostrum odio eos veniam. Accusamus deserunt est modi atque,
+      aliquam quasi qui fugit, consequatur, laboriosam ad quisquam laudantium.
     </div>
   ),
 };

@@ -32,13 +32,11 @@ Import the component
 import { HeroCardImageRight } from "tailwind-antd-react-kit";
 ```
 
-![hero dark imageRight inclined](https://i.ibb.co/HKLYTqg/hero-dark-imageright-inclined.png)
+[![tark-hero.png](https://i.postimg.cc/tT6nZ79H/tark-hero.png)](https://postimg.cc/G8cm6LBM)
 
-```typescript
-import { HeroCardImageRight } from "tailwind-antd-react-kit";
-```
+[![tark-hero-dark-inclined.png](https://i.postimg.cc/Bbc8py8Y/tark-hero-dark-inclined.png)](https://postimg.cc/QKCxxfJ1)
 
-![Hero Default ImageRight Inclined](https://i.ibb.co/YZdYgRD/hero-default-imageright.png)
+[![tark-hero-default-inclined.png](https://i.postimg.cc/h497KJCL/tark-hero-default-inclined.png)](https://postimg.cc/CdxKNKp5)
 
 ## Docs
 

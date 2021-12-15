@@ -36,9 +36,9 @@ Default.args = {
   padding: true,
   textualBodyProps: {
     preTitle: "Free ready-to-use UI",
-    title: "Design is not for everyone",
+    title: "Design for everyone",
     body:
-      "Sometimes you just have to accept that ready-made components are your best bet. Be shameless, it’s all about making money as fast as possible.",
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque, officiis? Sapiente ut nostrum odio eos veniam. Accusamus deserunt est modi atque, aliquam quasi qui fugit, consequatur, laboriosam ad quisquam laudantium.",
   },
   footer: (
     <>
@@ -63,13 +63,15 @@ Custom.args = {
     ),
     title: (
       <div className="text-3xl tracking-tight font-extrabold sm:text-4xl md:text-5xl">
-        Design is not for <span className="text-indigo-500">everyone</span>
+        Design for <span className="text-indigo-500">everyone</span>
       </div>
     ),
     body: (
       <div className="text-base leading-relaxed text-gray-600">
-        Sometimes you just have to accept that ready-made components are your
-        best bet. Be shameless, it’s all about making money as fast as possible.
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque,
+        officiis? Sapiente ut nostrum odio eos veniam. Accusamus deserunt est
+        modi atque, aliquam quasi qui fugit, consequatur, laboriosam ad quisquam
+        laudantium.
       </div>
     ),
   },
@@ -105,13 +107,12 @@ Dark.args = {
     ),
     title: (
       <div className="text-3xl tracking-tight font-extrabold sm:text-4xl md:text-5xl">
-        Design is not for <span className="text-indigo-500">everyone</span>
+        Design for <span className="text-indigo-500">everyone</span>
       </div>
     ),
     body: (
       <div className="text-base leading-relaxed text-gray-300">
-        Sometimes you just have to accept that ready-made components are your
-        best bet. Be shameless, it’s all about making money as fast as possible.
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque, officiis? Sapiente ut nostrum odio eos veniam. Accusamus deserunt est modi atque, aliquam quasi qui fugit, consequatur, laboriosam ad quisquam laudantium.
       </div>
     ),
   },
