@@ -2,9 +2,27 @@ import clsx from "clsx";
 import React from "react";
 
 export type FeatureIconProps = React.HTMLAttributes<HTMLDivElement> & {
+  /**
+   * Icon size
+   * @default `medium`
+   */
   size?: "large" | "medium" | "small";
+
+  /**
+   * Padding based on width when enabled
+   * @default false
+   */
   padding?: boolean | string;
+
+  /**
+   * Container rounded
+   * @default true
+   */
   rounded?: boolean;
+
+  /**
+   * Icon component
+   */
   icon?: React.ReactNode;
 };
 
