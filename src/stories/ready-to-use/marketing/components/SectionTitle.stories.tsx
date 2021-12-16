@@ -1,5 +1,7 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { CodeOutlined } from "@ant-design/icons";
 import SectionTitle from "../../../../components/ready-to-use/marketing/sections/components/SectionTitle";
+import FeatureIcon from "../../../../components/ready-to-use/marketing/sections/features/FeatureIcon";
 
 export default {
   title: "Ready-to-use/Marketing/Sections/Componens/SectionTitle",
@@ -38,7 +40,6 @@ export default {
 } as ComponentMeta<typeof SectionTitle>;
 
 const Template: ComponentStory<typeof SectionTitle> = (args) => {
-  //   const [formInstance] = useForm();
   return (
     <div className="w-full">
       <SectionTitle {...args} />
@@ -58,6 +59,37 @@ Default.args = {
 export const Custom = Template.bind({});
 Custom.args = {
   className: "",
+  preTitle: (
+    <div className="font-semibold tracking-wide uppercase text-indigo-500">
+      Designed for developers
+    </div>
+  ),
+  title: (
+    <div className="leading-8 font-extrabold tracking-tight text-gray-900">
+      The world’s most powerful and easy-to-use APIs
+    </div>
+  ),
+  subTitle: (
+    <div className="max-w-2xl text-gray-500">
+      Lorem ipsum dolor, sit amet consectetur adipisicing elit. Cum excepturi
+      nostrum eum est consequuntur mollitia provident iure illum asperiores
+      architecto itaque illo ex distinctio.
+    </div>
+  ),
+};
+
+export const CustomWithIcon = Template.bind({});
+CustomWithIcon.args = {
+  className: "",
+  gapClass: "gap-4",
+  icon: (
+    <FeatureIcon
+      className="bg-indigo-500 text-white"
+      icon={<CodeOutlined />}
+      size="medium"
+      padding={true}
+    />
+  ),
   preTitle: (
     <div className="font-semibold tracking-wide uppercase text-indigo-500">
       Designed for developers
