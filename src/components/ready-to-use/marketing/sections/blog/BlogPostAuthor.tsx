@@ -3,9 +3,12 @@ import clsx from "clsx";
 import React from "react";
 import { Flex } from "../../../..";
 
-export type BlogPostAuthorProps = React.HTMLAttributes<HTMLDivElement> & {
-  layout: "horizontal" | "vertical";
-  size: "large" | "medium" | "small";
+export type BlogPostAuthorProps = Omit<
+  React.HTMLAttributes<HTMLDivElement>,
+  "title"
+> & {
+  layout?: "horizontal" | "vertical";
+  size?: "large" | "medium" | "small";
   profileImage?: React.ReactNode;
   profileImageShape?: "circle" | "square";
   title?: React.ReactNode;
