@@ -22,7 +22,7 @@
     "downlevelIteration": true,
     "jsx": "react-jsx",
     "outDir": "dist",
-    "sourceMap": false
+    "sourceMap": false,
   },
   "include": [
     "src/components/**/*"

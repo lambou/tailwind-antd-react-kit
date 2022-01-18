@@ -10,7 +10,7 @@ const SAutocomplete = styled(AutoComplete)`
   }
 `;
 
-export type AutoCompleteInputProps = AutoCompleteProps;
+export type AutoCompleteInputProps = AutoCompleteProps<any, any>;
 
 const AutocompleteInput: React.FC<AutoCompleteInputProps> = React.forwardRef<
   any,

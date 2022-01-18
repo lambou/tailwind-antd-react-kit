@@ -1,14 +1,14 @@
 import { notification, Spin } from "antd";
-import Select, { OptionProps, SelectProps, SelectValue } from "antd/lib/select";
+import Select, { OptionProps, SelectProps, SelectValue,  } from "antd/lib/select";
 import Axios from "axios";
-import React, { ReactNode, useEffect, useState } from "react";
 import { Backend } from "backend-gateway";
+import React, { ReactNode, useEffect, useState } from "react";
 
 export declare type SearchUrlFunc = (term?: string) => string;
 
 export declare type RemoteSelectProps<
-  ResponseItemType = any
-> = SelectProps<SelectValue> & {
+  ResponseItemType
+> = SelectProps<any, any> & {
   renderOption: (
     item: ResponseItemType
   ) => {
@@ -21,19 +21,20 @@ export declare type RemoteSelectProps<
   errorMessage?: ReactNode;
 };
 
-const RemoteSelect = React.forwardRef<any, RemoteSelectProps>((props, ref) => {
+const RemoteSelect = React.forwardRef<any, RemoteSelectProps<any>>((props, ref) => {
   // explode props
   const {
     renderOption,
     renderSearchUrl,
     dataExtractor,
-    errorMessage,
     defaultOptions,
+    searchingContent,
+    errorMessage,
+
     onChange,
     onSearch,
     filterOption,
     notFoundContent,
-    searchingContent,
     value,
     ...propsRest
   } = props;
@@ -115,20 +116,20 @@ const RemoteSelect = React.forwardRef<any, RemoteSelectProps>((props, ref) => {
       notFoundContent: fetching
         ? searchingContent ?? <Spin size="small" />
         : notFoundContent,
-      filterOption: filterOption ?? false,
-      onSearch: (value: string) => {
-        fetchOptions(value);
-
-        // original onSearch
-        if (onSearch) onSearch(value);
-      },
-      onChange: (value: SelectValue, option: any) => {
-        handleChange(value);
-
-        // original onChange
-        if (onChange) onChange(value, option);
-      },
-      ...propsRest,
+        filterOption: filterOption ?? false,
+        onSearch: (value: string) => {
+          fetchOptions(value);
+  
+          // original onSearch
+          if (onSearch) onSearch(value);
+        },
+        onChange: (value: any, option: any) => {
+          handleChange(value);
+  
+          // original onChange
+          if (onChange) onChange(value, option);
+        },
+        ...propsRest,
     },
     data.map((d) => {
       const opts = renderOption(d);
