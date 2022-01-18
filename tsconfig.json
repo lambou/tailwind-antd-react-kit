@@ -1,7 +1,6 @@
 {
   "compilerOptions": {
     "declaration": true,
-    "emitDeclarationOnly": true,
     "target": "es5",
     "lib": [
       "dom",
