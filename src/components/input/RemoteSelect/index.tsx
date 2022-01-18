@@ -2,7 +2,7 @@ import { notification, Spin } from "antd";
 import Select, { OptionProps, SelectProps, SelectValue } from "antd/lib/select";
 import Axios from "axios";
 import React, { ReactNode, useEffect, useState } from "react";
-import Backend from "../../helpers/Backend";
+import { Backend } from "backend-gateway";
 
 export declare type SearchUrlFunc = (term?: string) => string;
 

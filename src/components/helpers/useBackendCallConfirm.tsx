@@ -1,5 +1,5 @@
 import confirm from "antd/lib/modal/confirm";
-import Backend, { BackendCallFuncProps } from "./Backend";
+import { Backend, BackendCallFuncProps } from "backend-gateway";
 import { ModalFuncProps } from "antd/lib/modal";
 
 export declare type BackendCallConfirmFunProps = {
